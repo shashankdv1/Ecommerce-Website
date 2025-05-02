@@ -1,23 +1,49 @@
 import{useState,useRef} from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import Footer from './Footer.jsx';
 function Home()
 {
     const profileMenuRef = useRef(null); 
-        const [isVisible, setIsVisible] = useState(false);
+    const sideMenuRef=useRef(null);
+    const[isVisiblesideMenu,setIsVisiblesideMenu]=useState(false);
+        const [isVisibleprofileMenu, setIsVisibleprofileMenu] = useState(false);
    
     function profileView()
     {  if (profileMenuRef.current) {
-        profileMenuRef.current.style.display = isVisible ? 'none' : 'block'; 
-        setIsVisible(!isVisible);
+        profileMenuRef.current.style.display = isVisibleprofileMenu ? 'none' : 'block'; 
+        setIsVisibleprofileMenu(!isVisibleprofileMenu);
       }
-      
     }
+      
+      function sideMenuView()
+      {
+        if (sideMenuRef.current) {
+            sideMenuRef.current.style.display = isVisiblesideMenu ? 'none' : 'block'; 
+            setIsVisiblesideMenu(!isVisiblesideMenu);
+      }
+    }
+      
     return(
         <div class="relative">
 <div class="flex justify-normal">
     <p>Store App</p>
     <input class="ml-20 w-52" type="text" placeholder="Please enter the search"></input>
     <button><img class="w-4" src={require("../Images/search.png")}/></button>
-    <button onClick={profileView} class="fixed top-0 right-0  bg-green-500 text-white">Your profile</button>
+    <button onClick={profileView} >Your profile</button>
+</div>
+<div class="flex">
+<button onClick={sideMenuView}><FontAwesomeIcon icon={faList} />All</button>
+<div class="flex" ref={sideMenuRef} style={{ display: 'none' }} > 
+    <button class="ml-2">BestSellers</button>
+    <button class="ml-2">Offers</button>
+    <button class="ml-2">Mobiles</button>
+    <button class="ml-2">Electronics</button>
+    <button class="ml-2">Home and Kitchen</button>
+    <button class="ml-2">Computers</button>
+    <button class="ml-2">Books</button>
+    <button class="ml-2">Automobile</button>
+</div>
 </div>
 <div class="flex">
 <h1 class="text-2xl">Based on Your Cart and Order History</h1>
@@ -34,6 +60,7 @@ function Home()
     <li>Product catorgy: </li>
     </ul>
 </div>
+<Footer/>
 </div>
     );
 }
