@@ -30,7 +30,7 @@ function Home()
     <p>Store App</p>
     <input class="ml-20 w-52" type="text" placeholder="Please enter the search"></input>
     <button><img class="w-4" src={require("../Images/search.png")}/></button>
-    <button onClick={profileView} >Your profile</button>
+    <button onClick={profileView} class="absolute right-0" >Your profile</button>
 </div>
 <div class="flex">
 <button onClick={sideMenuView}><FontAwesomeIcon icon={faList} />All</button>
@@ -45,6 +45,9 @@ function Home()
     <button class="ml-2">Automobile</button>
 </div>
 </div>
+<div>
+    <h1>Trending Products</h1>
+</div>
 <div class="flex">
 <h1 class="text-2xl">Based on Your Cart and Order History</h1>
 <div id ="profileMenu" ref={profileMenuRef} style={{ display: 'none' }} class="absolute w-10  h-6 right-0 bg-red-500">
@@ -57,7 +60,7 @@ function Home()
     <ul>
     <li>Product name: </li>
     <li>Price: </li>
-    <li>Product catorgy: </li>
+    <li>Product category: </li>
     </ul>
 </div>
 <Footer/>
