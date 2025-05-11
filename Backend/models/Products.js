@@ -12,7 +12,7 @@ Name:{
     unique:true
 },
 Price:{
-    type:number,
+    type:Number,
     required:true
 },
 Category:{
