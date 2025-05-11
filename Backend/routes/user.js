@@ -4,7 +4,7 @@ const userModel = require("../models/user");
 const{authMiddleware} =  require("../middlewears/index");
 const {handleLogin,handleRegistration,handleLogout,verifyToken} = require("../controllers/user");
 router.post("/register",handleRegistration);
-router.post("/login",handleLogin);
+router.post("/Login",handleLogin);
 router.post("/logout", handleLogout);
 router.get("/Main",authMiddleware,async(req,res)=>
     {

@@ -25,12 +25,15 @@ async function handleRegistration(req,res)
     if (!Email || !username || !number || !password) {
         return res.status(400).json({ msg: "All fields are required" });
     }
-    const existinguserModel = await userModel.findOne({ Email });
-    if (existinguserModel) return res.status(400).json({ msg: "userModel already exists" });
+    const existinguserModel = await userModel.findOne({Email });
+    if (existinguserModel) 
+        {return res.status(400).json({ msg: "userModel already exists" });
+}
     const hashedPassword = await bcrypt.hash(password, 10);
     const newuserModel = new userModel({ username, number,Email, password: hashedPassword });
     await newuserModel.save();
-    res.json({ msg: "userModel registered successfully" });
+    res.json({success:true, msg: "userModel registered successfully" });
+
 };
 
 async function handleLogout(req, res) {
