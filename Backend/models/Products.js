@@ -22,6 +22,10 @@ Category:{
 Description:{
     type:String,
 },
+Image:{
+    type:Buffer,
+    contentType:String
+}
 });
 
 const productModel=mongoose.model("Products",productsSchema);
