@@ -1,13 +1,43 @@
 import React from "react";
-
-function AdminLogin() {
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../userContext";
+    const AdminLogin=()=>
+    {
+      const { setUser } = useUser(); 
+      const navigate=useNavigate();
+      const [username,setusername]=useState("");
+      const  [password,setpassword]=useState("");
+      const handleadminLogin = async (e) => {
+        e.preventDefault();
+        try{
+        const res = await axios.post(
+           "http://localhost:8000/Admin/Adminlogin",
+          { username,password },
+          { withCredentials: true }
+      );
+     
+      if (res.data.success) {
+        console.log("Login successful!");
+        setUser({ name: res.data.name});
+        navigate("/AddItems");
+      }
+      else{
+        alert(res.data.msg());
+      }
+    }
+    catch(error){
+      alert(error.response?.data?.msg || "Login failed");
+    }
+      }
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form className="flex flex-col gap-4 bg-white p-6 rounded-xl shadow-md w-96">
+    <div className="flex justify-center items-center">
+      <form onSubmit={handleadminLogin} className="flex flex-col gap-4">
         
         {/* Username */}
         <div className="flex items-center gap-4">
-          <label htmlFor="username" className="w-24 text-sm font-medium text-gray-700">
+          <label htmlFor="username" className="">
             Username:
           </label>
           <input
@@ -16,12 +46,13 @@ function AdminLogin() {
             type="text"
             placeholder="Enter your username"
             className="flex-1 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={(e)=>setusername(e.target.value)} required
           />
         </div>
 
         {/* Password */}
         <div className="flex items-center gap-4">
-          <label htmlFor="pwd" className="w-24 text-sm font-medium text-gray-700">
+          <label htmlFor="pwd" className="">
             Password:
           </label>
           <input
@@ -30,15 +61,14 @@ function AdminLogin() {
             type="password"
             placeholder="Enter your password"
             className="flex-1 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+         onChange={(e)=>setpassword(e.target.value)} required/>
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
           className="mt-4 bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition"
-        >
-          Submit
+        >Submit
         </button>
       </form>
     </div>

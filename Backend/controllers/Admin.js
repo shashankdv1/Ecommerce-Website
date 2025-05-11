@@ -18,21 +18,6 @@ async function handleLogin(req,res){
     
     res.json({  success: true, token, msg: "successful",name:adminDetail.username });
 };
-
-async function handleRegistration(req,res)
-{
-    const { username, number,Email, password } = req.body;
-    if (!Email || !username || !number || !password) {
-        return res.status(400).json({ msg: "All fields are required" });
-    }
-    const existingadminModel = await adminModel.findOne({ Email });
-    if (existingadminModel) return res.status(400).json({ msg: "userModel already exists" });
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newadminModel = new adminModel({ username, number,Email, password: hashedPassword });
-    await newadminModel.save();
-    res.json({ msg: "userModel registered successfully" });
-};
-
 async function handleLogout(req, res) {
     res.cookie("token", "", { httpOnly: true, expires: new Date(0) });
     res.json({ success: true, msg: "Logged out successfully" });
@@ -52,7 +37,6 @@ function verifyToken(req, res, next) {
 }
 
 module.exports = {
-    handleRegistration,
     handleLogin,
     handleLogout,
     verifyToken
