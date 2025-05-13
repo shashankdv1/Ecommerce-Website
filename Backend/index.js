@@ -3,6 +3,7 @@ const express=require('express');
 const{ connectMongoDb } = require('./connection');
 const router=require("./routes/user");
 const adminrouter=require("./routes/Admin");
+const productRouter=require("./routes/Product");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const port=8000;
@@ -14,6 +15,7 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(cookieParser());
 app.use("/",router)
 app.use("/Admin",adminrouter);
+app.use("/Items",productRouter);
 connectMongoDb("mongodb://127.0.0.1:27017/store-details");
 app.listen(port ,()=>{
 console.log(`Server started listening on port: ${port}`);
