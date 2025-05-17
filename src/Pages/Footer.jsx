@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 function Footer()
 {
@@ -6,7 +8,7 @@ function Footer()
         <div>
             <h1>Connect With us</h1>
             <ul>
-                <li>Github</li>
+                <a href="https://github.com/shashankdv1"><li><FontAwesomeIcon icon={faGithub} /> Github</li></a>
             </ul>
         </div>
     );

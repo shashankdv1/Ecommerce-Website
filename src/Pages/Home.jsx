@@ -1,9 +1,11 @@
 import{useState,useRef} from 'react'
+import {useUser} from '../userContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import Footer from './Footer.jsx';
 function Home()
 {
+    const{productData}=useUser();
     const profileMenuRef = useRef(null); 
     const sideMenuRef=useRef(null);
     const[isVisiblesideMenu,setIsVisiblesideMenu]=useState(false);
