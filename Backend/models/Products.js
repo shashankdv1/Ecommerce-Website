@@ -22,9 +22,9 @@ Category:{
 Description:{
     type:String,
 },
-Image:{
-    type:Buffer,
-    contentType:String
+Image: {
+  data: Buffer,
+  contentType: String
 }
 });
 

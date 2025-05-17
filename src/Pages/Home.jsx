@@ -27,7 +27,7 @@ function Home()
     return(
         <div class="relative">
 <div class="flex justify-normal">
-    <p>Store App</p>
+    <a href="http://localhost:3000/"><p>Store App</p></a>
     <input class="ml-20 w-52" type="text" placeholder="Please enter the search"></input>
     <button><img class="w-4" src={require("../Images/search.png")}/></button>
     <button onClick={profileView} class="absolute right-0" >Your profile</button>

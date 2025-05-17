@@ -1,5 +1,5 @@
 import React from "react";
-import {useState} from"react";
+import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function AddItems()
@@ -13,16 +13,26 @@ function AddItems()
         const[category,setCategory]=useState("");
         const[description,setDescription]=useState("");
         function handleChange(e) {
-            console.log(e.target.files);
-            setFile(URL.createObjectURL(e.target.files[0]));
+             const file = e.target.files[0];
+            setImage(file); 
+             setFile(URL.createObjectURL(file)); 
         }
         const ItemsInsertion=async(e)=>{
-            e.preventDefault();
+           const formData = new FormData();
+            formData.append("Id", Id);
+            formData.append("Name", username);
+            formData.append("Price", price);
+            formData.append("Category", category);
+            formData.append("Description", description);
+            formData.append("Image", image);
             try{
                     const res = await axios.post(
-                       "http://localhost:8000/Item/AddItems",
-                      { Id,username,price,category,description,image},
-                    );
+                       "http://localhost:8000/Items/AddItems",formData,
+                    {
+                 headers: {
+                    "Content-Type": "multipart/form-data",
+                         },
+            });
                     if (res.data.success) {
                         console.log("Item added successful!");
                         navigate("/");
@@ -33,7 +43,8 @@ function AddItems()
                 }
                 catch(error)
                 {
-                    alert(error.response?.data?.msg || "Login failed");
+                    alert(error.response?.data?.msg || "Insertion failed");
+                    console.log(error.response?.data.msg);
                 }
             }  
     return(
@@ -59,7 +70,7 @@ function AddItems()
             </div>
             <div className="App">
             <h2>Add Image:</h2>
-            <input type="file"  name="image" onChange={(e)=>{handleChange(e); setImage(e.target.value)}} />
+            <input type="file" onChange={(e) => setImage(e.target.files[0])} />
             <img src={file} className
             ="w-20" />
         </div>

@@ -1,6 +1,5 @@
 import React from "react";
 
-
 function Footer()
 {
     return(
@@ -8,7 +7,6 @@ function Footer()
             <h1>Connect With us</h1>
             <ul>
                 <li>Github</li>
-                <li>Linkedin</li>
             </ul>
         </div>
     );
