@@ -12,12 +12,8 @@ function AddItems()
         const[image,setImage]=useState("");
         const[category,setCategory]=useState("");
         const[description,setDescription]=useState("");
-        function handleChange(e) {
-             const file = e.target.files[0];
-            setImage(file); 
-             setFile(URL.createObjectURL(file)); 
-        }
         const ItemsInsertion=async(e)=>{
+             e.preventDefault();
            const formData = new FormData();
             formData.append("Id", Id);
             formData.append("Name", username);
