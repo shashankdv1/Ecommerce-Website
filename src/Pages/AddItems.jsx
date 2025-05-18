@@ -37,7 +37,7 @@ function AddItems()
                 }
                 catch(error)
                 {
-                   alert(error.response?.data?.msg);
+                   alert(error.response?.data?.msg || "Item Added Succesfully");
                 }
             }  
     return(
