@@ -4,7 +4,6 @@ import axios from "axios";
 function AddItems()
 {
         const navigate=useNavigate();
-        const [file, setFile] = useState();
         const[Id,setId]=useState("");
         const[username,setUsername]=useState("");
         const[price,setPrice]=useState("");
