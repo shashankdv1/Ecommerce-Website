@@ -64,8 +64,6 @@ function AddItems()
             <div className="App">
             <h2>Add Image:</h2>
             <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-            <img src={file} className
-            ="w-20" />
         </div>
             <button type="submit">Submit</button>
         </form>

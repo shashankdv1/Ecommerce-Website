@@ -1,9 +1,8 @@
 const productModel = require("../models/Products");
-const multer = require("multer");
 const handleInsertion = async (req, res) => {
   try {
     const { Id, Name, Price, Category, Description } = req.body;
-   // const existingProduct = await productModel.findOne({ Id });
+   const existingProduct = await productModel.findOne({ Id });
      
     if (existingProduct) {
       return res.json({ success: false, msg: "Product with this ID already exists" });
