@@ -1,11 +1,8 @@
-import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../userContext";
     const AdminLogin=()=>
     {
-      const { setUser } = useUser(); 
       const navigate=useNavigate();
       const [username,setusername]=useState("");
       const  [password,setpassword]=useState("");
@@ -21,7 +18,6 @@ import { useUser } from "../userContext";
      
       if (res.data.success) {
         console.log("Login successful!");
-        setUser({ name: res.data.name});
         navigate("/AddItems");
       }
       else{

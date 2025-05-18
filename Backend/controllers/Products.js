@@ -3,8 +3,8 @@ const multer = require("multer");
 const handleInsertion = async (req, res) => {
   try {
     const { Id, Name, Price, Category, Description } = req.body;
-    const existingProduct = await productModel.findOne({ Id });
-
+   // const existingProduct = await productModel.findOne({ Id });
+     
     if (existingProduct) {
       return res.json({ success: false, msg: "Product with this ID already exists" });
     }
@@ -12,7 +12,6 @@ const handleInsertion = async (req, res) => {
       data: req.file.buffer,
       contentType: req.file.mimetype,
     } : null;
-
     const newProduct = new productModel({
       Id,
       Name,
@@ -23,7 +22,8 @@ const handleInsertion = async (req, res) => {
     });
 
     await newProduct.save();
-    res.json({ success: true });
+    res.status(200).json({ success: true});
+   
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, msg: "Internal server error" });

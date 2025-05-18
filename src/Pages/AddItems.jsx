@@ -1,4 +1,3 @@
-import React from "react";
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -30,7 +29,7 @@ function AddItems()
                          },
             });
                     if (res.data.success) {
-                        console.log("Item added successful!");
+                        alert("Item added successfully");
                         navigate("/");
                       }
                       else{
@@ -39,8 +38,7 @@ function AddItems()
                 }
                 catch(error)
                 {
-                    alert(error.response?.data?.msg || "Insertion failed");
-                    console.log(error.response?.data.msg);
+                   alert(error.response?.data?.msg);
                 }
             }  
     return(
