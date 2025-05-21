@@ -1,8 +1,10 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { DataUser } from "../userContext";
 import axios from "axios";
 function AddItems()
 {
+        const{setData}=DataUser();
         const navigate=useNavigate();
         const[Id,setId]=useState("");
         const[username,setUsername]=useState("");
@@ -29,10 +31,11 @@ function AddItems()
             });
                     if (res.data.success) {
                         alert("Item added successfully");
+                        await renderItems();
                         navigate("/");
-                      }
+                    }
                       else{
-                        alert(res.data.msg());
+                        alert(res.data.msg);
                       }
                 }
                 catch(error)
@@ -40,12 +43,29 @@ function AddItems()
                    alert(error.response?.data?.msg || "Item Added Succesfully");
                 }
             }  
+            const renderItems=async()=>{
+                try{
+                    const renderRes=await axios.get("http://localhost:8000/Items/RenderItems");
+                    if(renderRes.data.success)
+                    {
+                        console.log(renderRes.data);
+                        
+                            setData({productName:renderRes.data.name});
+                        
+                    }
+                }
+                catch(error)
+                {
+                    alert(error.response?.data?.msg);
+                }
+
+            }
     return(
     <div className="flex justify-center items-center">
         <form onSubmit={ItemsInsertion} className="flex flex-col">
         <div className="flex items-center gap-4">
         <label for="name">ProductId: </label>
-        <input onChange={(e)=>{setId(e.target.value)}} className="flex-1 border-b-2"type="text" name="Id" placeholder="Enter your Product ID"></input>
+        <input onChange={(e)=>{setId(e.target.value)}} className="flex-1 border-b-2" type="number" name="Id" placeholder="Enter your Product ID"></input>
             <label for="name">Name: </label>
             <input onChange={(e)=>{setUsername(e.target.value)}} className="flex-1 border-b-2"type="text" name="username" placeholder="Enter your Product name"></input>
             </div>

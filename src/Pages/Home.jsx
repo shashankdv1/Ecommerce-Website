@@ -1,13 +1,13 @@
 import{useState,useRef} from 'react'
-import { useUser } from "../userContext"
+import { DataUser } from '../userContext.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import Footer from './Footer.jsx';
 function Home()
 {
     const profileMenuRef = useRef(null); 
-    const productData=useUser();
     const sideMenuRef=useRef(null);
+    const {data}=DataUser();
     const[isVisiblesideMenu,setIsVisiblesideMenu]=useState(false);
         const [isVisibleprofileMenu, setIsVisibleprofileMenu] = useState(false);
    
@@ -49,7 +49,13 @@ function Home()
 </div>
 <div>
     <h1>Trending Products</h1>
-    <h1>ProductData: {productData.productName}</h1>
+    <div>
+    {data && data.productName ? (
+      <h1>Product Name: {data.productName}</h1>
+    ) : (
+      <h1>Loading or No Product Available</h1>
+    )}
+  </div>
 </div>
 <div class="flex">
 <h1 class="text-2xl">Based on Your Cart and Order History</h1>

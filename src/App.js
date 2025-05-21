@@ -3,13 +3,14 @@ import Login from "./Pages/Login";
 import Main from "./Pages/Main";
 import Home from "./Pages/Home";
 import AddItems from "./Pages/AddItems";
-import { UserProvider } from "./userContext"
+import { UserProvider,DataProvider } from "./userContext"
 import Registrations from "./Pages/Registration";
 import AdminLogin from "./Pages/AdminLogin";
 function App() {
   return (
     <div>
       <UserProvider>
+        <DataProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/Login" element={<Login />}></Route>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/AdminLogin" element={<AdminLogin/>}></Route>
       </Routes>
     </BrowserRouter>
+       </DataProvider>
     </UserProvider>
     </div>
   );

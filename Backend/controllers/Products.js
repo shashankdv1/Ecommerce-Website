@@ -3,7 +3,6 @@ const handleInsertion = async (req, res) => {
   try {
     const { Id, Name, Price, Category, Description } = req.body;
    const existingProduct = await productModel.findOne({ Id });
-     
     if (existingProduct) {
       return res.json({ success: false, msg: "Product with this ID already exists" });
     }
@@ -19,7 +18,7 @@ const handleInsertion = async (req, res) => {
       Description,
       Image,
     });
-
+      
     await newProduct.save();
     res.status(200).json({ success: true});
    
@@ -28,4 +27,19 @@ const handleInsertion = async (req, res) => {
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
-module.exports={handleInsertion};
+const renderItems=async(req,res) =>{
+try {
+    const dataProduct = await productModel.findOne({Id:1}); 
+    if (!dataProduct) {
+       return res.json({ success: false, msg: "Product not found" });
+    }
+
+  
+
+    res.json({ success: true, name: dataProduct.Name });
+  } catch (error) {
+     console.error("Error rendering items:", error);
+    res.status(500).json({ success: false, msg: "Internal server error" });
+  }
+};
+module.exports={handleInsertion,renderItems};
