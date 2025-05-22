@@ -1,10 +1,9 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { DataUser } from "../userContext";
 import axios from "axios";
 function AddItems()
 {
-        const{setData}=DataUser();
+        
         const navigate=useNavigate();
         const[Id,setId]=useState("");
         const[username,setUsername]=useState("");
@@ -31,7 +30,6 @@ function AddItems()
             });
                     if (res.data.success) {
                         alert("Item added successfully");
-                        await renderItems();
                         navigate("/");
                     }
                       else{
@@ -43,23 +41,7 @@ function AddItems()
                    alert(error.response?.data?.msg || "Item Added Succesfully");
                 }
             }  
-            const renderItems=async()=>{
-                try{
-                    const renderRes=await axios.get("http://localhost:8000/Items/RenderItems");
-                    if(renderRes.data.success)
-                    {
-                        console.log(renderRes.data);
-                        
-                            setData({productName:renderRes.data.name});
-                        
-                    }
-                }
-                catch(error)
-                {
-                    alert(error.response?.data?.msg);
-                }
-
-            }
+            
     return(
     <div className="flex justify-center items-center">
         <form onSubmit={ItemsInsertion} className="flex flex-col">

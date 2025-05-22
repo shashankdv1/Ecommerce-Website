@@ -29,7 +29,7 @@ const handleInsertion = async (req, res) => {
 };
 const renderItems=async(req,res) =>{
 try {
-    const dataProduct = await productModel.findOne({Id:1}); 
+    const dataProduct = await productModel.findOne({Id:2}); 
     if (!dataProduct) {
        return res.json({ success: false, msg: "Product not found" });
     }

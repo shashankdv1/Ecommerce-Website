@@ -1,5 +1,5 @@
 import{useState,useRef} from 'react'
-import { DataUser } from '../userContext.js';
+import RenderItems from './RenderItems.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import Footer from './Footer.jsx';
@@ -7,10 +7,9 @@ function Home()
 {
     const profileMenuRef = useRef(null); 
     const sideMenuRef=useRef(null);
-    const {data}=DataUser();
     const[isVisiblesideMenu,setIsVisiblesideMenu]=useState(false);
-        const [isVisibleprofileMenu, setIsVisibleprofileMenu] = useState(false);
-   
+    const [isVisibleprofileMenu, setIsVisibleprofileMenu] = useState(false);
+ 
     function profileView()
     {  if (profileMenuRef.current) {
         profileMenuRef.current.style.display = isVisibleprofileMenu ? 'none' : 'block'; 
@@ -25,7 +24,6 @@ function Home()
             setIsVisiblesideMenu(!isVisiblesideMenu);
       }
     }
-      
     return(
         <div class="relative">
 <div class="flex justify-normal">
@@ -49,13 +47,7 @@ function Home()
 </div>
 <div>
     <h1>Trending Products</h1>
-    <div>
-    {data && data.productName ? (
-      <h1>Product Name: {data.productName}</h1>
-    ) : (
-      <h1>Loading or No Product Available</h1>
-    )}
-  </div>
+    <RenderItems/>
 </div>
 <div class="flex">
 <h1 class="text-2xl">Based on Your Cart and Order History</h1>
