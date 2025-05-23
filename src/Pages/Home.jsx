@@ -35,9 +35,9 @@ function Home()
 <div class="flex">
 <button onClick={sideMenuView}><FontAwesomeIcon icon={faList} />All</button>
 <div class="flex" ref={sideMenuRef} style={{ display: 'none' }} > 
-    <button class="ml-2">BestSellers</button>
-    <button class="ml-2">Offers</button>
-    <button class="ml-2">Mobiles</button>
+   <a href=" http://localhost:3000/BestSellers"><button class="ml-2">BestSellers</button></a>
+   <a href=" http://localhost:3000/Offers"><button class="ml-2">Offers</button></a>
+    <a href=" http://localhost:3000/Mobile"><button class="ml-2">Mobiles</button></a>
     <button class="ml-2">Electronics</button>
     <button class="ml-2">Home and Kitchen</button>
     <button class="ml-2">Computers</button>

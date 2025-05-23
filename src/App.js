@@ -6,6 +6,9 @@ import AddItems from "./Pages/AddItems";
 import { UserProvider,DataProvider } from "./userContext"
 import Registrations from "./Pages/Registration";
 import AdminLogin from "./Pages/AdminLogin";
+import BestSellers from "./Pages/BestSellers";
+import Offers from "./Pages/Offers";
+import Mobile from "./Pages/Mobile";
 function App() {
   return (
     <div>
@@ -19,6 +22,9 @@ function App() {
         <Route path="/Main" element={<Main />}></Route>
         <Route path="/AddItems" element={<AddItems/>}></Route>
         <Route path="/AdminLogin" element={<AdminLogin/>}></Route>
+        <Route path="/BestSellers" element={<BestSellers/>}></Route>
+        <Route path="/Offers" element={<Offers/>}></Route>
+        <Route path="/Mobile" element={<Mobile/>}></Route>
       </Routes>
     </BrowserRouter>
        </DataProvider>
