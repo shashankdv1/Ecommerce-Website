@@ -50,7 +50,6 @@ function Home()
     <RenderItems/>
 </div>
 <div class="flex">
-<h1 class="text-2xl">Based on Your Cart and Order History</h1>
 <div id ="profileMenu" ref={profileMenuRef} style={{ display: 'none' }} class="absolute w-10  h-6 right-0 bg-red-500">
    <ul>
    <li>Your Orders</li>
