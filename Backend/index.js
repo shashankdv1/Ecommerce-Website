@@ -4,6 +4,7 @@ const{ connectMongoDb } = require('./connection');
 const router=require("./routes/user");
 const adminrouter=require("./routes/Admin");
 const productRouter=require("./routes/Product");
+const Pagerouter=require("./routes/Pages");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const port=8000;
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use("/",router)
 app.use("/Admin",adminrouter);
 app.use("/Items",productRouter);
+app.use("/Categories",Pagerouter);
 connectMongoDb("mongodb://127.0.0.1:27017/store-details");
 app.listen(port ,()=>{
 console.log(`Server started listening on port: ${port}`);
