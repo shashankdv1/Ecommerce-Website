@@ -9,6 +9,11 @@ import AdminLogin from "./Pages/AdminLogin";
 import BestSellers from "./Pages/BestSellers";
 import Offers from "./Pages/Offers";
 import Mobile from "./Pages/Mobile";
+import Electronics from "./Pages/Electronics";
+import HomeAppliances from "./Pages/HomeAppliances";
+import Books from "./Pages/Books";
+import AutoMobile from "./Pages/AutoMobile";
+import Groceries from "./Pages/Groceries";
 function App() {
   return (
     <div>
@@ -25,6 +30,12 @@ function App() {
         <Route path="/BestSellers" element={<BestSellers/>}></Route>
         <Route path="/Offers" element={<Offers/>}></Route>
         <Route path="/Mobile" element={<Mobile/>}></Route>
+        <Route path="/Electronics" element={<Electronics/>}></Route>
+        <Route path="/HomeAppliances" element={<HomeAppliances/>}></Route>
+        <Route path="/Books" element={<Books/>}></Route>
+        <Route path="/AutoMobile" element={<AutoMobile/>}></Route>
+         <Route path="/Groceries" element={<Groceries/>}></Route>
+        
       </Routes>
     </BrowserRouter>
        </DataProvider>
