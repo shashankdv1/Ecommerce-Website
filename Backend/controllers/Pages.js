@@ -1,3 +1,4 @@
+const { faCommentsDollar } = require("@fortawesome/free-solid-svg-icons");
 const productModel = require("../models/Products");
 const handleMobile=async(req,res)=>{
 try{
@@ -83,5 +84,24 @@ catch (error) {
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
+const handleTrending=async(req,res)=>{
+try{
+    const year = 2025; 
+const start = new Date(Date.UTC(year, 4, 1)); 
+const end = new Date(Date.UTC(year, 6, 1));
+      const trendingModels = await productModel.find({
+  addedOn: { $gte: start, $lt: end }
+});
+    if (!trendingModels || trendingModels.length===0) {
+       return res.json({ success: false, msg: "Trending Products not found" });
+    }
+    res.json({ success: true, trend:trendingModels});
 
-module.exports={handleMobile,handleElectronics,handleHomeItems,handleGroceries,handleBooks,handleAutoMobile};
+}
+catch (error) {
+     console.error("Error rendering AutoMobile Category items:", error);
+    res.status(500).json({ success: false, msg: "Internal server error" });
+  }
+};
+
+module.exports={handleMobile,handleElectronics,handleHomeItems,handleGroceries,handleBooks,handleAutoMobile,handleTrending};

@@ -25,7 +25,9 @@ Description:{
 Image: {
   data: Buffer,
   contentType: String
-}
+},
+ addedOn: 
+ { type: Date, default: Date.now }
 });
 
 const productModel=mongoose.model("Products",productsSchema);

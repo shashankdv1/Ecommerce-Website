@@ -1,10 +1,11 @@
 const express = require("express");
 const Pagerouter = express.Router();
-const{handleMobile, handleElectronics, handleHomeItems, handleGroceries, handleAutoMobile, handleBooks}=require("../controllers/Pages");
+const{handleMobile, handleElectronics, handleHomeItems, handleGroceries, handleAutoMobile, handleBooks, handleTrending}=require("../controllers/Pages");
 Pagerouter.get("/Mobiles",handleMobile);
 Pagerouter.get("/Electronics",handleElectronics);
 Pagerouter.get("/HomeAppliances",handleHomeItems);
 Pagerouter.get("/Groceries",handleGroceries);
 Pagerouter.get("/AutoMobile",handleAutoMobile);
 Pagerouter.get("/Books",handleBooks);
+Pagerouter.get("/Trending",handleTrending);
 module.exports=Pagerouter;

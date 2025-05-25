@@ -3,6 +3,7 @@ import RenderItems from './RenderItems.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import Footer from './Footer.jsx';
+import Trending from './Trending.jsx';
 function Home()
 {
     const profileMenuRef = useRef(null); 
@@ -47,6 +48,7 @@ function Home()
 </div>
 <div>
     <h1>Trending Products</h1>
+    <Trending/>
     <RenderItems/>
 </div>
 <div class="flex">
