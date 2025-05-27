@@ -23,6 +23,7 @@ axios.get("http://localhost:8000/Items/RenderItems").then(response=>{
         <>
     <ul>
       {items.map(item=>(<li>
+        <img src={`http://localhost:8000/Items/getImage/${item.Id}`}  alt="Product" />
         <li key={item.id}>{item.name}</li>
       </li>))}
       </ul>
