@@ -3,7 +3,7 @@ import Login from "./Pages/Login";
 import Main from "./Pages/Main";
 import Home from "./Pages/Home";
 import AddItems from "./Pages/AddItems";
-import { UserProvider,DataProvider } from "./userContext"
+import { UserProvider} from "./userContext"
 import Registrations from "./Pages/Registration";
 import AdminLogin from "./Pages/AdminLogin";
 import BestSellers from "./Pages/BestSellers";
@@ -18,7 +18,6 @@ function App() {
   return (
     <div>
       <UserProvider>
-        <DataProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/Login" element={<Login />}></Route>
@@ -38,7 +37,6 @@ function App() {
         
       </Routes>
     </BrowserRouter>
-       </DataProvider>
     </UserProvider>
     </div>
   );

@@ -9,14 +9,8 @@ async function handleLogin(req,res){
     if (!userDetail) return res.status(400).json({ msg: "user not found" });
     const isMatch = await bcrypt.compare(password, userDetail.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
-    const token = jwt.sign({ userModelId: userModel._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    res.cookie('token', token, {
-        httpOnly: true, 
-        secure: process.env.NODE_ENV === 'production', 
-        maxAge: 3600 * 1000 
-    });
-    
-    res.json({  success: true, token, msg: "successful",name:userDetail.username });
+     req.session.username = userDetail.username;
+    res.json({  success: true, msg: "successful",name:userDetail.username });
 };
 
 async function handleRegistration(req,res)
