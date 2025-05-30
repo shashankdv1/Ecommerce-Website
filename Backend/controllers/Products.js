@@ -1,8 +1,22 @@
 const productModel = require("../models/Products");
 const handleInsertion = async (req, res) => {
   try {
-    const { Id, Name, Price, Category, Description } = req.body;
-   const existingProduct = await productModel.findOne({ Id });
+    const {Name, Price, Category, Description } = req.body;
+  const product = await productModel.findOne({});
+  let Id=0;
+  if(typeof(product)==Number)
+  {
+    Id=product;
+  }
+    if(Id===0)
+    {
+      Id=1;
+    }
+    else if(Id>=1)
+    {
+    Id+=1;
+    }
+   const existingProduct = await productModel.findOne({ Name });
     if (existingProduct) {
       return res.json({ success: false, msg: "Product with this ID already exists" });
     }
@@ -35,7 +49,7 @@ try {
        return res.json({ success: false, msg: "Product not found"});
     }
 
-    res.json({ success: true, name: dataProduct.Name});
+    res.json({ success: true, name: dataProduct.Name,price:dataProduct.Price});
   } catch (error) {
      console.error("Error rendering items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
