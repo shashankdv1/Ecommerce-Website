@@ -11,7 +11,6 @@ export const UserProvider = ({ children }) => {
   const saveUser = (userData) => {
     if (userData) {
       sessionStorage.setItem("user", JSON.stringify(userData));
-      console.log(JSON.stringify(userData));
       if(userData.name===null){
       sessionStorage.removeItem("user");
     }
