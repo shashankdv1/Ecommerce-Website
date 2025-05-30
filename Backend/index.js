@@ -14,7 +14,6 @@ const MongoStore = require('connect-mongo');
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-//app.use(authMiddleware());
 app.use(session({
     secret: process.env.SESSION_SECRET ||'your-secret-key',
     resave: false,
@@ -32,14 +31,6 @@ app.use("/",router)
 app.use("/Admin", authMiddleware, adminrouter); 
 app.use("/Items",productRouter);
 app.use("/Categories",Pagerouter);
-/*app.get('/loggedin', (req, res) => {
-    console.log(req.session.username);
-  if (req.session.username) {
-    res.json({ loggedIn: true, name: req.session.username });
-  } else {
-    res.json({ loggedIn: false });
-  }
-});*/
 
 connectMongoDb("mongodb://127.0.0.1:27017/store-details");
 app.listen(port ,()=>{

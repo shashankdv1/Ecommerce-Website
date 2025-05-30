@@ -3,6 +3,7 @@ import{useState,useRef} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer";
+import Logout from "./Logout";
 function Main()
 {
     
@@ -55,6 +56,7 @@ function Main()
 <div id ="profileMenu" ref={profileMenuRef} style={{ display: 'none' }} class="absolute w-10  h-6 right-0 bg-red-500">
    <ul>
    <li>Your Orders</li>
+   <Logout/>
    </ul>
 </div>
 </div>

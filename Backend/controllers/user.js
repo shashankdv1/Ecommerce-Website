@@ -30,10 +30,24 @@ async function handleRegistration(req,res)
 
 };
 
-async function handleLogout(req, res) {
-    res.cookie("token", "", { httpOnly: true, expires: new Date(0) });
-    res.json({ success: true, msg: "Logged out successfully" });
-}
+const handleLogout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ msg: "Failed to logout" });
+    }
+    
+    res.clearCookie("connect.sid", {
+    httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: "/"   
+    });
+
+    return res.json({ success: true, msg: "Logged out" });
+  });
+};
+
+
 
 function verifyToken(req, res, next) {
     const token = req.cookies.token;

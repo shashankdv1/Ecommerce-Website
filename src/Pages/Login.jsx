@@ -1,6 +1,5 @@
 import {useState } from "react";
 import {useNavigate} from "react-router-dom";
-import { useEffect } from "react";
 import axios from "axios";
 import { useUser } from "../userContext"
 const Login=()=>
