@@ -19,7 +19,6 @@ const Login=()=>
   
  
   if (res.data.success) {
-    console.log("Login successful!");
     setUser({ name: res.data.name});
     navigate("/Main");
   }
