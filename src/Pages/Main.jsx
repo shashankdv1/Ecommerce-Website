@@ -3,6 +3,7 @@ import{useState,useRef} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer";
+import RenderItems from "./RenderItems";
 import Logout from "./Logout";
 function Main()
 {
@@ -60,13 +61,7 @@ function Main()
    </ul>
 </div>
 </div>
-<div class="flex-col mt-36">
-    <ul>
-    <li>Product name: </li>
-    <li>Price: </li>
-    <li>Product category: </li>
-    </ul>
-</div>
+<RenderItems/>
 <Footer/>
 </div>
 </>

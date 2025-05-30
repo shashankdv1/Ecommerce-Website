@@ -2,20 +2,12 @@ const productModel = require("../models/Products");
 const handleInsertion = async (req, res) => {
   try {
     const {Name, Price, Category, Description } = req.body;
-  const product = await productModel.findOne({});
-  let Id=0;
-  if(typeof(product)==Number)
+  const product = await productModel.findOne({}).sort({Id:-1});
+  let Id=1;
+  if(typeof product?.Id !== "undefined")
   {
-    Id=product;
+    Id=product.Id+1;
   }
-    if(Id===0)
-    {
-      Id=1;
-    }
-    else if(Id>=1)
-    {
-    Id+=1;
-    }
    const existingProduct = await productModel.findOne({ Name });
     if (existingProduct) {
       return res.json({ success: false, msg: "Product with this ID already exists" });
@@ -57,7 +49,7 @@ try {
 };
 const getImage = async (req, res) => {
   try {
-    const dataProduct = await productModel.findOne({ Id: 1 });
+    const dataProduct = await productModel.find();
     if (!dataProduct || !dataProduct.Image) {
       return res.status(404).send("Image not found");
     }

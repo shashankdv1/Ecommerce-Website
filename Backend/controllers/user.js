@@ -23,11 +23,24 @@ async function handleRegistration(req,res)
     if (existinguserModel) 
         {return res.status(400).json({ msg: "userModel already exists" });
 }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newuserModel = new userModel({ username, number,Email, password: hashedPassword });
-    await newuserModel.save();
-    res.json({success:true, msg: "userModel registered successfully" });
+    const user=await userModel.findOne({}).sort({ userId: -1 });
+     let userId = 1;
 
+  if (typeof user?.userId !== "undefined") {
+    userId = user.userId + 1;
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = new userModel({
+    userId,
+    username,
+    number,
+    Email,
+    password: hashedPassword,
+  });
+
+  await newUser.save();
+  res.json({ success: true, msg: "User registered successfully" });
 };
 
 const handleLogout = (req, res) => {
