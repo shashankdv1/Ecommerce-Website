@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import AddItems from "./Pages/AddItems";
 import { AdminProvider, UserProvider} from "./userContext"
 import Registrations from "./Pages/Registration";
+import AdminDashboard from "./Pages/AdminDashboard";
 import AdminLogin from "./Pages/AdminLogin";
 import BestSellers from "./Pages/BestSellers";
 import Offers from "./Pages/Offers";
@@ -35,6 +36,7 @@ function App() {
         <Route path="/Books" element={<Books/>}></Route>
         <Route path="/AutoMobile" element={<AutoMobile/>}></Route>
          <Route path="/Groceries" element={<Groceries/>}></Route>
+         <Route path="/AdminDashboard" element={<AdminDashboard/>}></Route>
       </Routes>
     </BrowserRouter>
     </AdminProvider>

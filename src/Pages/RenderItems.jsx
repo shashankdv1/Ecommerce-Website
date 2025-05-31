@@ -40,7 +40,7 @@ const RenderItems = () => {
       <li>Product Name: {product.Name}</li>
       <li>Product Id: {product.Id}</li>
       <li>
-        <img
+        <img class="w-32 h-32"
           src={`http://localhost:8000/Items/getImage/${product.Id}`}
           alt={product.Name}
         />

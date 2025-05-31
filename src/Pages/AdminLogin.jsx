@@ -11,20 +11,18 @@ import { useNavigate } from "react-router-dom";
       const handleadminLogin = async (e) => {
         e.preventDefault();
         try{
-          
         const res = await axios.post(
            "http://localhost:8000/Admin/Adminlogin",
           { username,password },
           { withCredentials: true }
       );
-     
+   
       if (res.data.success) {
-        console.log("Login successful!");
         setAdmin({name:res.data.name});
-        navigate("/AddItems");
+        navigate("/AdminDashboard");
       }
       else{
-        alert(res.data.msg());
+        alert(res.data.msg);
       }
     }
     catch(error){

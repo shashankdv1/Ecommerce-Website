@@ -8,7 +8,7 @@ const Pagerouter=require("./routes/Pages");
 const cors = require("cors");
 const port=8000;
 const app = express();
-const authMiddleware=require("./middlewears/index");
+//const authMiddleware=require("./middlewears/index");
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
@@ -28,7 +28,8 @@ app.use(session({
 }));
 
 app.use("/",router)
-app.use("/Admin", authMiddleware, adminrouter); 
+//app.use("/Admin", authMiddleware, adminrouter); 
+app.use("/Admin",adminrouter); 
 app.use("/Items",productRouter);
 app.use("/Categories",Pagerouter);
 
