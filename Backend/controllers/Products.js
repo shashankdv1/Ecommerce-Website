@@ -35,13 +35,14 @@ const handleInsertion = async (req, res) => {
 };
 const renderItems=async(req,res) =>{
 try {
-    const dataProduct = await productModel.findOne({Id:1}); 
+    const dataProduct = await productModel.find({}); 
+    const dataLatest= await productModel.findOne({}).sort({Id:-1});
+    dataLength=dataLatest?.Id;
     //console.log(new Date(dataProduct.addedOn)+ (5.5 * 60 * 60 * 1000));
     if (!dataProduct) {
        return res.json({ success: false, msg: "Product not found"});
     }
-
-    res.json({ success: true, name: dataProduct.Name,price:dataProduct.Price});
+    res.json({ success: true,items:dataProduct,len:dataLength});
   } catch (error) {
      console.error("Error rendering items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
@@ -49,8 +50,9 @@ try {
 };
 const getImage = async (req, res) => {
   try {
-    const dataProduct = await productModel.find();
-    if (!dataProduct || !dataProduct.Image) {
+    const dataProduct = await productModel.findOne({Id:1});
+    //const ImageCount=await productModel.findOne({Id}).sort({Id:-1});
+      if (!dataProduct || !dataProduct.Image) {
       return res.status(404).send("Image not found");
     }
 

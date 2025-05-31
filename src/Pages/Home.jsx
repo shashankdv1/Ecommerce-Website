@@ -58,13 +58,6 @@ function Home()
    </ul>
 </div>
 </div>
-<div class="flex-col mt-36">
-    <ul>
-    <li>Product name: </li>
-    <li>Price: </li>
-    <li>Product category: </li>
-    </ul>
-</div>
 <Footer/>
 </div>
     );

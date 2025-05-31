@@ -1,51 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect } from "react";
-const RenderItems=()=>{
- const[error,setError]=useState("");
-    const[loading,setLoading]=useState(true);
-    const[items,setItems]=useState([]);
-   // const[buyclicked,setBuyClicked]=useState(false);
-   // const[clickedId,setClikedId]=useState("");
-     useEffect(() => {
-axios.get("http://localhost:8000/Items/RenderItems").then(response=>{
-  setItems([response.data]);
-  setLoading(false);
-})
-.catch(error=>{
-  console.error(`Error fetching data:`,error);
-  setError('Failed to fetch items.');
-  setLoading(false);
-});
-},[]);
-const setBuyAction=()=>{
- // setBuyClicked(true);
-}
-  if(loading) return
-  <p>Loading...</p>
-      if(error) return <p>{error}</p>
-      /*if(buyclicked)
-      {
-        const buy=()=>{
-          
 
+const RenderItems = () => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState([]); // array of products
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/Items/RenderItems")
+      .then((response) => {
+        const data = response.data;
+
+        if (data.success && Array.isArray(data.items)) {
+          setItems(data.items);
+          setError("");
+        } else {
+          setItems([]);
+          setError("No products found in response");
         }
-      }*/
-      return(
-        <>
-            <div class="flex-col mt-36">
-    <ul>
-      {items.map(item=>(<li>
-        <li key={item.id}>Product name: {item.name}</li>
-        <img src={`http://localhost:8000/Items/getImage/${item.Id}`}  alt="Product" />
-        <l1 key={item.id}>Price $ {item.price}</l1><br />
-        <button value={item.id}>Buy</button>
-      </li>))}
-      </ul>
-      </div>
-      </>
-      );
-    }
-    export default RenderItems;
-  
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setError("Failed to fetch items.");
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+  if (items.length === 0) return <p>No products to display.</p>;
+
+  return (
+    <div className="flex-col mt-36">
+    {items.map((product, index) => (
+  product && product.Name && (
+    <ul key={product.Id || index}>
+      <li>Product Name: {product.Name}</li>
+      <li>Product Id: {product.Id}</li>
+      <li>
+        <img
+          src={`http://localhost:8000/Items/getImage/${product.Id}`}
+          alt={product.Name}
+        />
+      </li>
+      <li>Product Price: {product.Price}</li>
+    </ul>
+  )
+))}
+    </div>
+  );
+};
+
+export default RenderItems;
