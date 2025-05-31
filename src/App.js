@@ -3,7 +3,7 @@ import Login from "./Pages/Login";
 import Main from "./Pages/Main";
 import Home from "./Pages/Home";
 import AddItems from "./Pages/AddItems";
-import { UserProvider} from "./userContext"
+import { AdminProvider, UserProvider} from "./userContext"
 import Registrations from "./Pages/Registration";
 import AdminLogin from "./Pages/AdminLogin";
 import BestSellers from "./Pages/BestSellers";
@@ -18,6 +18,7 @@ function App() {
   return (
     <div>
       <UserProvider>
+        <AdminProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/Login" element={<Login />}></Route>
@@ -34,9 +35,9 @@ function App() {
         <Route path="/Books" element={<Books/>}></Route>
         <Route path="/AutoMobile" element={<AutoMobile/>}></Route>
          <Route path="/Groceries" element={<Groceries/>}></Route>
-        
       </Routes>
     </BrowserRouter>
+    </AdminProvider>
     </UserProvider>
     </div>
   );

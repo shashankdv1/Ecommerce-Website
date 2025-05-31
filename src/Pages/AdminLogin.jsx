@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useAdmin } from "../userContext";
 import { useNavigate } from "react-router-dom";
     const AdminLogin=()=>
     {
+      const {setAdmin}=useAdmin();
       const navigate=useNavigate();
       const [username,setusername]=useState("");
       const  [password,setpassword]=useState("");
@@ -18,6 +20,7 @@ import { useNavigate } from "react-router-dom";
      
       if (res.data.success) {
         console.log("Login successful!");
+        setAdmin({name:res.data.name});
         navigate("/AddItems");
       }
       else{

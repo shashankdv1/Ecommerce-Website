@@ -2,11 +2,10 @@ const adminModel = require("../models/Admin");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 async function handleLogin(req,res){
-    const {username,Email,password } = req.body;
-    const adminDetail = await adminModel.findOne({ 
-        $or: [{ Email }, { username }]
-    }); 
+    const {username,password } = req.body;
+    const adminDetail = await adminModel.findOne({ username }); 
     if (!adminDetail) return res.status(400).json({ msg: "user not found" });
+   
     const isMatch = await bcrypt.compare(password, adminDetail.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
     const token = jwt.sign({ adminModelId: adminModel._id }, process.env.JWT_SECRET, { expiresIn: "1h" });

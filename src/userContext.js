@@ -2,6 +2,7 @@ import  { createContext, useContext, useState } from "react";
 
 const UserContext = createContext();
 
+
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
@@ -26,3 +27,30 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+const AdminContext = createContext();
+export const useAdmin = () => useContext(AdminContext);
+
+export const AdminProvider = ({ children }) => {
+  const savedAdmin = sessionStorage.getItem("admin");
+  const [admin, setAdmin] = useState(savedAdmin ? JSON.parse(savedAdmin) : null);
+
+  const saveAdmin = (adminData) => {
+    if (adminData) {
+      sessionStorage.setItem("admin", JSON.stringify(adminData));
+      if(adminData.name===null){
+      sessionStorage.removeItem("admin");
+    }
+    } else{
+      sessionStorage.removeItem("admin");
+    }
+    setAdmin(adminData);
+  };
+
+  return (
+    <AdminContext.Provider value={{ admin, setAdmin: saveAdmin }}>
+      {children}
+    </AdminContext.Provider>
+  );
+};
+

@@ -1,9 +1,10 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAdmin } from "../userContext";
 function AddItems()
 {
-        
+        const {admin}=useAdmin();
         const navigate=useNavigate();
         const[username,setUsername]=useState("");
         const[price,setPrice]=useState("");
@@ -38,8 +39,13 @@ function AddItems()
                 {
                    alert(error.response?.data?.msg || "Item not Added Succesfully");
                 }
-            }  
+            }     
             
+        if(admin===null)
+            {
+               
+                return <p>You do not have priviliges to access this page</p>
+            }   
     return(
     <div className="flex justify-center items-center">
         <form onSubmit={ItemsInsertion} className="flex flex-col">
