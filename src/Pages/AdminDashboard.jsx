@@ -7,7 +7,7 @@ const AdminDashboard=()=>{
         navigate('/AddItems');
 }
 const removeItems=()=>{
-
+    navigate('/RemoveItems');
 }
  if(admin===null)
             {

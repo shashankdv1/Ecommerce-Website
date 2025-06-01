@@ -2,10 +2,10 @@ const RemoveItems=()=>{
     return(
         <>
         <form>
-            <label for="productId">Product Id: </label><input name="productId" type="number"></input>
+            <label for="productId">Product Id: </label><input class="rounded-xl border-black border" name="productId" type="number"></input>
         </form>
         </>
     )
 }
 
-return RemoveItems;
+export default RemoveItems;
