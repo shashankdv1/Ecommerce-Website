@@ -63,5 +63,24 @@ const getImage = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+const deleteItems=async(req,res)=>{
+try{
+const { Id, Name } = req.body;
+const getProduct = await productModel.findOne({ Id, Name });
+const productName=getProduct.Name;
+if(!getProduct) 
+  {
+    return res.status(400).json({msg:"Product Not found"});
+  }
+else{
+  await productModel.deleteOne({ $or: [{ Id }, { Name }]});
+   res.json({  success: true, msg: "successful",name:productName });
+}
+}
+catch(err)
+{
+  res.status(500).send("Server error");
+}
+}
 
-module.exports={handleInsertion,renderItems,getImage};
+module.exports={handleInsertion,renderItems,getImage,deleteItems};
