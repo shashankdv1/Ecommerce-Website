@@ -29,7 +29,7 @@ function Main()
     }
     return(
         <>
-        <h1>Welcome, {user?.name || "Guest"}!</h1>
+
 <div class="relative">
 <div class="flex justify-normal">
     <a href="http://localhost:3000/"><p>Store App</p></a>
@@ -54,9 +54,10 @@ function Main()
     <h1>Trending Products</h1>
 </div>
 <div class="flex">
-<div id ="profileMenu" ref={profileMenuRef} style={{ display: 'none' }} class="absolute w-10  h-6 right-0 bg-red-500">
+<div id ="profileMenu" ref={profileMenuRef} style={{ display: 'none' }} class="absolute w-10  h-6 right-0">
    <ul>
-   <li>Your Orders</li>
+    <li class="bg-red-100">{user?.name || "Guest"}</li>
+   <li><button>Your Orders</button></li> 
    <Logout/>
    </ul>
 </div>
