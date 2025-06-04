@@ -1,14 +1,13 @@
-import { useUser } from "../userContext"
 import{useState,useRef} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer";
 import RenderItems from "./RenderItems";
-import Logout from "./Logout";
+import SideMenu from "./SideMenu";
 function Main()
 {
     
-    const {user} = useUser();
+  
        const profileMenuRef = useRef(null); 
         const sideMenuRef=useRef(null);
         const[isVisiblesideMenu,setIsVisiblesideMenu]=useState(false);
@@ -20,7 +19,7 @@ function Main()
             setIsVisibleprofileMenu(!isVisibleprofileMenu);
           }
         }
-     function sideMenuView()
+  function sideMenuView()
       {
         if (sideMenuRef.current) {
             sideMenuRef.current.style.display = isVisiblesideMenu ? 'none' : 'block'; 
@@ -50,21 +49,15 @@ function Main()
     <a href="http://localhost:3000/Groceries"><button class="ml-2">Automobile</button></a>
 </div>
 </div>
-<div>
-    <h1>Trending Products</h1>
-</div>
-<div class="flex">
+     <div class="flex">
 <div id ="profileMenu" ref={profileMenuRef} style={{ display: 'none' }} class="absolute w-10  h-6 right-0">
-   <ul>
-    <li class="bg-red-100">{user?.name || "Guest"}</li>
-   <li><button>Your Orders</button></li> 
-   <Logout/>
-   </ul>
+    <SideMenu/>
 </div>
 </div>
+</div>
+<h1>Trending Products</h1>
 <RenderItems/>
 <Footer/>
-</div>
 </>
     );
 }

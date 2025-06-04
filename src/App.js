@@ -16,6 +16,7 @@ import Books from "./Pages/Books";
 import AutoMobile from "./Pages/AutoMobile";
 import Groceries from "./Pages/Groceries";
 import RemoveItems from "./Pages/RemoveItems";
+import Orders from "./Pages/Orders";
 function App() {
   return (
     <div>
@@ -39,6 +40,7 @@ function App() {
          <Route path="/Groceries" element={<Groceries/>}></Route>
          <Route path="/AdminDashboard" element={<AdminDashboard/>}></Route>
          <Route path="/RemoveItems" element={<RemoveItems/>}></Route>
+         <Route path="/Orders" element={<Orders/>}></Route>
       </Routes>
     </BrowserRouter>
     </AdminProvider>
