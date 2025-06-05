@@ -1,4 +1,5 @@
 const adminModel = require("../models/Admin");
+const userModel=require("../models/user")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 async function handleLogin(req,res){
@@ -34,10 +35,22 @@ function verifyToken(req, res, next) {
         return res.status(401).json({ msg: "Invalid token" });
     }
 }
-
+async function getCustomercount(req,res)
+{
+    try{
+const userDetail=await userModel.countDocuments({});
+if(!userDetail) return res.status(400).json({msg:" Users Count Not found"});
+res.json({success:true,count:userDetail});
+    }
+    catch(error)
+    {
+        res.status(500).json({success:false,msg:"Internal Server Error"});
+    }
+}
 module.exports = {
     handleLogin,
     handleLogout,
-    verifyToken
+    verifyToken,
+    getCustomercount
 }
 
