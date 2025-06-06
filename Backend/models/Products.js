@@ -5,23 +5,23 @@ const productsSchema=new mongoose.Schema({
     type:Number,
     unique:true
 },
-Name:{
+name:{
     type:String,
     required:true,
     unique:true
 },
-Price:{
+price:{
     type:Number,
     required:true
 },
-Category:{
+category:{
     type:String,
     required:true
 },
-Description:{
+description:{
     type:String,
 },
-Image: {
+image: {
   data: Buffer,
   contentType: String
 },

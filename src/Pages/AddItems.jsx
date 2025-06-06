@@ -14,11 +14,11 @@ function AddItems()
         const ItemsInsertion=async(e)=>{
              e.preventDefault();
            const formData = new FormData();
-            formData.append("Name", username);
-            formData.append("Price", price);
-            formData.append("Category", category);
-            formData.append("Description", description);
-            formData.append("Image", image);
+            formData.append("name", username);
+            formData.append("price", price);
+            formData.append("category", category);
+            formData.append("description", description);
+            formData.append("image", image);
             try{
                     const res = await axios.post(
                        "http://localhost:8000/Items/AddItems",formData,
@@ -37,6 +37,7 @@ function AddItems()
                 }
                 catch(error)
                 {
+                    console.log(error);
                    alert(error.response?.data?.msg || "Item not Added Succesfully");
                 }
             }     
@@ -45,7 +46,7 @@ function AddItems()
             {
                
                 return <p>You do not have priviliges to access this page</p>
-            }   
+            }        
     return(
     <div className="flex justify-center items-center">
         <form onSubmit={ItemsInsertion} className="flex flex-col">
@@ -59,7 +60,16 @@ function AddItems()
             </div>
             <div className="flex items-center gap-4">
             <label for="category">Category: </label>
-            <input onChange={(e)=>{setCategory(e.target.value)}} type="text" name="category" className="p-2" placeholder="Enter your Product Category"></input>
+           <select id="category" onChange={(e) => setCategory(e.target.value)} required>
+  <option value="">-- Select Category --</option>
+  <option value="Mobile">Mobile</option>
+  <option value="Electronics">Electronics</option>
+  <option value="Groceries">Groceries</option>
+  <option value="Appliances">Appliances</option>
+  <option value="Books">Books</option>
+  <option value="AutoMobile">AutoMobile</option>
+</select>
+
             </div>
             <div className="flex items-center gap-4">
             <label for="description">Description</label>

@@ -1,28 +1,29 @@
 const productModel = require("../models/Products");
 const handleInsertion = async (req, res) => {
   try {
-    const {Name, Price, Category, Description } = req.body;
+    const {name, price, category, description } = req.body;
+    
   const product = await productModel.findOne({}).sort({Id:-1});
   let Id=1;
   if(typeof product?.Id !== "undefined")
   {
     Id=product.Id+1;
   }
-   const existingProduct = await productModel.findOne({ Name });
+   const existingProduct = await productModel.findOne({ name });
     if (existingProduct) {
       return res.json({ success: false, msg: "Product with this ID already exists" });
     }
-    const Image = req.file ? {
+    const image = req.file ? {
       data: req.file.buffer,
       contentType: req.file.mimetype,
     } : null;
     const newProduct = new productModel({
       Id,
-      Name,
-      Price,
-      Category,
-      Description,
-      Image,
+      name,
+      price,
+      category,
+      description,
+      image,
     });
       
     await newProduct.save();
@@ -51,12 +52,12 @@ const getImage = async (req, res) => {
   try {
     const dataProduct = await productModel.findOne({Id:1});
     //const ImageCount=await productModel.findOne({Id}).sort({Id:-1});
-      if (!dataProduct || !dataProduct.Image) {
+      if (!dataProduct || !dataProduct.image) {
       return res.status(404).send("Image not found");
     }
 
-      res.set("Content-Type", dataProduct.Image.contentType || "image/png");
-   res.status(200).send(dataProduct.Image.data);
+      res.set("Content-Type", dataProduct.image.contentType || "image/png");
+   res.status(200).send(dataProduct.image.data);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
@@ -64,15 +65,15 @@ const getImage = async (req, res) => {
 };
 const deleteItems=async(req,res)=>{
 try{
-const { Id, Name } = req.body;
+const { Id, name } = req.body;
 const getProduct = await productModel.findOne({ Id, Name });
-const productName=getProduct.Name;
+const productName=getProduct.name;
 if(!getProduct) 
   {
     return res.status(400).json({msg:"Product Not found"});
   }
 else{
-  await productModel.deleteOne({ $or: [{ Id }, { Name }]});
+  await productModel.deleteOne({ $or: [{ Id }, { name }]});
    res.json({  success: true, msg: "successful",name:productName });
 }
 }

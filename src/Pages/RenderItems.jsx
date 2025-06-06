@@ -35,17 +35,17 @@ const RenderItems = () => {
   return (
     <div className="flex-col mt-36">
     {items.map((product, index) => (
-  product && product.Name && (
+  product && product.name && (
     <ul key={product.Id || index}>
-      <li>Product Name: {product.Name}</li>
+      <li>Product Name: {product.name}</li>
       <li>Product Id: {product.Id}</li>
       <li>
         <img class="w-32 h-32"
           src={`http://localhost:8000/Items/getImage/${product.Id}`}
-          alt={product.Name}
+          alt={product.name}
         />
       </li>
-      <li>Product Price: {product.Price}</li>
+      <li>Product Price: {product.price}</li>
     </ul>
   )
 ))}
