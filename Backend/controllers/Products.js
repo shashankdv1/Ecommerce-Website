@@ -38,7 +38,6 @@ try {
     const dataProduct = await productModel.find({}); 
     const dataLatest= await productModel.findOne({}).sort({Id:-1});
     dataLength=dataLatest?.Id;
-    //console.log(new Date(dataProduct.addedOn)+ (5.5 * 60 * 60 * 1000));
     if (!dataProduct) {
        return res.json({ success: false, msg: "Product not found"});
     }

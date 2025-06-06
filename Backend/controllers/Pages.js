@@ -1,4 +1,3 @@
-const { faCommentsDollar } = require("@fortawesome/free-solid-svg-icons");
 const productModel = require("../models/Products");
 const handleMobile=async(req,res)=>{
 try{
@@ -72,7 +71,7 @@ catch (error) {
 };
 const handleAutoMobile=async(req,res)=>{
 try{
-      const autoMobileModels = await productModel.find({ Category: "Electronics" });
+      const autoMobileModels = await productModel.find({ Category: "AutoMobile" });
     if (!autoMobileModels || autoMobileModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -103,5 +102,21 @@ catch (error) {
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
+const getProductStats=async(req,res)=>{
+    
+    try{
+      const MblCount=await productModel.countDocuments({Category:"Mobile"});
+    const ElectronicsCount = await productModel.countDocuments({Category:"Electronics"});
+    const GroceryCount = await productModel.countDocuments({Category:"Groceries"});
+    const HomeItemsCount = await productModel.countDocuments({Category:"Appliances"});
+    const BooksCount = await productModel.countDocuments({Category:"Books"});
+    const AutoMobileCount = await productModel.countDocuments({Category:"AutoMobile"});
+        return res.status(200).json({success:true,MobileCount:MblCount,ElecCount:ElectronicsCount,GroceryCnt:GroceryCount,HomeItemsCnt:HomeItemsCount,BooksCnt:BooksCount,AutoCnt:AutoMobileCount});
+    }
 
-module.exports={handleMobile,handleElectronics,handleHomeItems,handleGroceries,handleBooks,handleAutoMobile,handleTrending};
+    catch(error)
+    {
+        res.status(500).json({msg:"Internal Server error"});
+    }
+};
+module.exports={handleMobile,handleElectronics,handleHomeItems,handleGroceries,handleBooks,handleAutoMobile,handleTrending,getProductStats};
