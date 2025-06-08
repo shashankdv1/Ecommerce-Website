@@ -10,7 +10,7 @@ function SideMenu()
         <li class="bg-red-100">{"Guest"}</li>
         <button><a href=""></a>Login</button>
         <button><a href=""></a>Register</button> 
-        <button><a href="">Help and Support</a></button>
+        <button><a href="http://localhost:3000/Help">Help and Support</a></button>
         </>
      }
 return(
@@ -19,7 +19,7 @@ return(
     <li class="bg-red-100">{user?.name}</li>
    <li><button><a href="http://localhost:3000/Orders">Your Orders</a></button></li> 
    <li><button>Your Cart</button></li> 
-   <button><a href="">Help and Support</a></button>
+   <button><a href="http://localhost:3000/Help">Help and Support</a></button>
    <Logout/>
    </ul>
     </>

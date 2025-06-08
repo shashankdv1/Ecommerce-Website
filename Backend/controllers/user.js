@@ -1,6 +1,7 @@
 const userModel = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const userstatusModel=require("../models/userStatus");
 async function handleLogin(req,res){
     const {username,Email,password } = req.body;
     const userDetail = await userModel.findOne({ 
@@ -38,8 +39,14 @@ async function handleRegistration(req,res)
     Email,
     password: hashedPassword,
   });
-
+  const status="Active";
+const userStatus=new userstatusModel({
+  userId,
+  username,
+  status
+});
   await newUser.save();
+  await userStatus.save();
   res.json({ success: true, msg: "User registered successfully" });
 };
 

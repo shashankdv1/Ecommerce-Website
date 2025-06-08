@@ -18,6 +18,8 @@ import Groceries from "./Pages/Groceries";
 import RemoveItems from "./Pages/RemoveItems";
 import Orders from "./Pages/Orders";
 import Products from "./Pages/Products";
+import Help from "./Pages/Help";
+import Forget from "./Pages/Forget";
 function App() {
   return (
     <div>
@@ -43,6 +45,8 @@ function App() {
          <Route path="/RemoveItems" element={<RemoveItems/>}></Route>
          <Route path="/Orders" element={<Orders/>}></Route>
          <Route path="/Products" element={<Products/>}></Route>
+         <Route path="/Help" element={<Help/>}></Route>
+         <Route path="/Forget" element={<Forget/>}></Route>
       </Routes>
     </BrowserRouter>
     </AdminProvider>

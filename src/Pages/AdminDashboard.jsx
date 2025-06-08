@@ -35,6 +35,7 @@ const removeItems=()=>{
     <button onClick={removeItems} class="w-16 h-16 bg-red-400 mt-7">RemoveItems</button><br />
     <button  class="w-16 h-16 bg-red-400 mt-7">Trending Products</button><br />
     <button  class="w-16 h-16 bg-red-400 mt-7">WareHouses Management</button><br />
+    <button class="w-16 h-16 bg-red-400 mt-7">Notifications</button><br/>
     <a href="http://localhost:3000/Products"><button  class="w-16 h-16 bg-red-400 mt-7">Products CategoryWise</button></a>
     </div>
     <div>
