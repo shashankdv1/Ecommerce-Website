@@ -75,7 +75,6 @@ const disableAccount = async (req, res) => {
   try {
     const userFound = await userModel.findOne({ username });
     const statusdetails=await userstatusModel.findOne({username});
-
     if (!userFound) {
       return res.status(404).json({
         success: false,
@@ -91,8 +90,9 @@ const disableAccount = async (req, res) => {
         msg: "Password mismatch. Please enter your correct account password.",
       });
     }
-
+   const time = new Date(); 
     statusdetails.status = "Disabled";
+    statusdetails.disabledOn=time;
     await statusdetails.save();
 
     return res.status(200).json({

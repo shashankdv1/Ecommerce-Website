@@ -14,7 +14,16 @@ status:{
 },
 RegisteredOn: 
  { type: Date,
- default: Date.now }
+ default: Date.now },
+  disabledOn:{
+    type:Date
+ },
+ deletionInitiated:{
+    type:Date
+ },
+ deletionCompleted:{
+    type:Date
+ }
 });
 const userstatusModel=mongoose.model("user-status-details",userstatusSchema);
 module.exports=userstatusModel;
