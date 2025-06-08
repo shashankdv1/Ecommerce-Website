@@ -11,7 +11,7 @@ function AutoMobile()
     axios
       .get("http://localhost:8000/Categories/AutoMobile")
       .then((response) => {
-        if (response.data.success && response.data.eItems) {
+        if (response.data.success && response.data.AutoMobileItems) {
           setautoMobileItems(response.data.AutoMobileItems);
         } else {
           setError("No AutoMobile Items found");

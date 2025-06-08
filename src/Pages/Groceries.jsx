@@ -11,8 +11,8 @@ function Groceries()
     axios
       .get("http://localhost:8000/Categories/Groceries")
       .then((response) => {
-        if (response.data.success && response.data.eItems) {
-          setgroceryItems(response.data.BookItems);
+        if (response.data.success && response.data.GroceryItems) {
+          setgroceryItems(response.data.GroceryItems);
         } else {
           setError("No Grocery Items found");
         }

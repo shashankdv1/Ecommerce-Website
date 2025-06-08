@@ -10,8 +10,8 @@ function HomeAppliances() {
     axios
       .get("http://localhost:8000/Categories/Electronics")
       .then((response) => {
-        if (response.data.success && response.data.eItems) {
-          setHomeItems(response.data.eItems);
+        if (response.data.success && response.data.homeItems) {
+          setHomeItems(response.data.homeItems);
         } else {
           setError("No Home Items found");
         }

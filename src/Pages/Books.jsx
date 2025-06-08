@@ -11,7 +11,7 @@ function Books()
     axios
       .get("http://localhost:8000/Categories/Books")
       .then((response) => {
-        if (response.data.success && response.data.eItems) {
+        if (response.data.success && response.data.BookItems) {
           setbookItems(response.data.BookItems);
         } else {
           setError("No Book Items found");
