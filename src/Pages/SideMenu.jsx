@@ -8,8 +8,9 @@ function SideMenu()
      {
         return<>
         <li class="bg-red-100">{"Guest"}</li>
-        <button><a href=""></a>Login</button>
-        <button><a href=""></a>Register</button> 
+        <button><a href="http://localhost:3000/Login">Login</a></button>
+        
+        <button><a href="http://localhost:3000/Register">Register</a></button>
         <button><a href="http://localhost:3000/Help">Help and Support</a></button>
         </>
      }

@@ -48,6 +48,11 @@ return(<>
         <input type="password" placeholder="Please retype your password" onChange={(e)=>setpassword(e.target.value)} required/><br />
         <button type="submit">Disable account</button>
         </form>
+        <p>Delete your account</p>
+          <form>
+        <input type="password" placeholder="Please retype your password" onChange={(e)=>setpassword(e.target.value)} required/><br />
+        <button type="submit">Disable account</button>
+        </form>
         </>
      )
 }
