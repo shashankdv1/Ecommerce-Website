@@ -8,6 +8,7 @@ const Login=()=>
   const navigate=useNavigate();
   const [Email,setemail]=useState("");
   const  [password,setpassword]=useState("");
+  const [Enable,setEnable]=useState(false);
   const handleLogin = async (e) => {
     e.preventDefault();
     try{
@@ -16,8 +17,29 @@ const Login=()=>
       { Email, password },
       { withCredentials: true }
   );
-  
- 
+  if(res.data.status==="Disabled")
+  {
+     const confirmEnable = window.confirm("Your account has been disabled.Are you sure you want to enable your account?");
+     if(confirmEnable)
+     {
+      setEnable(true);
+      const response= await axios.post("http://localhost:8000/EnableAccount",{Email},{withCredentials:true});
+      try{
+        if(response.data.success)
+        {
+          alert("Your Account has been successfully enabled");
+        }
+      }
+      catch(error)
+      {
+        alert(error?.msg?.data||"Internal Server error");
+      }
+     }
+     else{
+      alert("Account Enabling cancelled");
+     }
+
+  }
   if (res.data.success) {
     setUser({ name: res.data.name});
     navigate("/Main");
@@ -27,27 +49,10 @@ const Login=()=>
   }
 }
 catch(error){
-  alert(error.response?.data?.msg || "Login failed");
+  alert(error.response?.data?.msg ||"If Your Enabled now try logging in again!");
 }
   
   }
-  /* useEffect(() => {
-    
-  checkLoggedIn(); 
-    
-  }, []);
-  const checkLoggedIn = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/loggedin", { withCredentials: true });
-        if (res.data.loggedIn) {
-          setUser({ name: res.data.name });
-        } else {
-          setUser(null);
-        }
-      } catch {
-        setUser(null);
-      }
-    };*/
     return(
       <div>
        <h2>Login</h2>
