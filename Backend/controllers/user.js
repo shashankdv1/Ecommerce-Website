@@ -1,6 +1,7 @@
 const userModel = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const cron = require("node-cron");
 const userstatusModel=require("../models/userStatus");
 async function handleLogin(req,res){
     const {username,Email,password } = req.body;
@@ -12,6 +13,8 @@ async function handleLogin(req,res){
     if (!userDetail) return res.status(400).json({ msg: "user not found" });
     const isMatch = await bcrypt.compare(password, userDetail.password);
     if(userstatus?.status==="Disabled" && isMatch) return res.status(201).json({status:"Disabled",msg:"Account is disabled"});
+    if(userstatus?.deletionInitiated!==null) return res.status(201).json({status:"Archived",msg:"Account is scheduled for deletion"});
+      if(userstatus?.status==="deleted") return res.status(401).json({status:"Deleted",msg:"your Account is deleted"});
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
      req.session.username = userDetail.username;
     res.json({  success: true, msg: "successful",name:userDetail.username });
@@ -107,6 +110,71 @@ const disableAccount = async (req, res) => {
     });
   }
 };
+const deleteAccount = async (req, res) => {
+  const { username, password } = req.body;
+  console.log("Request Body:", req.body);
+
+  try {
+    const userFound = await userModel.findOne({ username });
+    if (!userFound) {
+      return res.status(404).json({
+        success: false,
+        msg: "User not found with the provided username.",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, userFound.password);
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        msg: "Password mismatch. Please enter your correct account password.",
+      });
+    }
+
+    const Id = userFound.userId;
+    const statusDoc = await userstatusModel.findOne({ userId: Id });
+
+    if (!statusDoc) {
+      return res.status(404).json({ success: false, msg: "Status document not found." });
+    }
+
+    if (statusDoc.status === "Disabled") {
+      return res.status(201).json({
+        status: "disabled",
+        note: "Please first enable your account to delete it.",
+      });
+    }
+
+    if (statusDoc.status === "Active") {
+      const TEN_DAYS = 10 * 24 * 60 * 60 * 1000; 
+      const today = new Date();
+      const targetDate = new Date(today.getTime() + TEN_DAYS);
+
+      statusDoc.deletionInitiated = today;
+      statusDoc.deletionCompleted = targetDate;
+      await statusDoc.save();
+
+      console.log(`Scheduled deletion at: ${targetDate}`);
+
+      setTimeout(async () => {
+        await statusDoc.updateOne(
+          { userId: Id },
+          { $set: { status: "deleted" } }
+        );
+      }, TEN_DAYS);
+
+      return res.status(200).json({
+        success: true,
+        msg: "Account will be deleted after 10 days.",
+      });
+    }
+  } catch (error) {
+    console.error("Delete account error:", error);
+    return res.status(500).json({ success: false, msg: error.message });
+  }
+};
+
+
 const enableAccount = async (req, res) => {
   const { Email } = req.body;
   try {
@@ -169,5 +237,6 @@ module.exports = {
     handleLogout,
     verifyToken,
     disableAccount,
-    enableAccount
+    enableAccount,
+    deleteAccount
 }

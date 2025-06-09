@@ -40,6 +40,10 @@ const Login=()=>
      }
 
   }
+  if(res.data.status=="deleted")
+  {
+    alert("Your account has been deleted");
+  }
   if (res.data.success) {
     setUser({ name: res.data.name});
     navigate("/Main");

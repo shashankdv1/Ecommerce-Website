@@ -41,7 +41,29 @@ const DeleteAccount=async(e)=>{
   if(confirmDeletion)
   {
     setdeleteAct(true);
+   const username=user?.name;
+  try{
+    const res= await axios.post("http://localhost:8000/DeleteAccount",{username,password},{withCredentials:true});
+    if(res.data?.status==="Disabled")
+    {
+      alert("Pls enable your account first to delete it!!!");
+    }
+    if(res.data.success)
+    {
+      alert("Your account has been marked for deletion and will be deleted for 10 days.");
+    }
+    else{
+          alert("Account deletion process was unsuccessful kindly recheck your password");
+        }
   }
+  catch(error)
+  {
+    alert(error?.msg?.data || "There was internal server error");
+  }
+}
+else{
+   alert("Account deletion canceled.");
+}
 }
      if(user?.name==null){
 return(<>
@@ -59,7 +81,7 @@ return(<>
         <p>Delete your account</p>
           <form onSubmit={DeleteAccount}>
         <input type="password" placeholder="Please retype your password" onChange={(e)=>setpassword(e.target.value)} required/><br />
-        <button type="submit">Disable account</button>
+        <button type="submit">Delete account</button>
         </form>
         </>
      )
