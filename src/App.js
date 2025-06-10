@@ -20,6 +20,8 @@ import Orders from "./Pages/Orders";
 import Products from "./Pages/Products";
 import Help from "./Pages/Help";
 import Forget from "./Pages/Forget";
+import Warehouse from "./Pages/Warehouse";
+import VendorRequests from "./Pages/VendorRequests";
 function App() {
   return (
     <div>
@@ -47,6 +49,8 @@ function App() {
          <Route path="/Products" element={<Products/>}></Route>
          <Route path="/Help" element={<Help/>}></Route>
          <Route path="/Forget" element={<Forget/>}></Route>
+          <Route path="/Warehouse" element={<Warehouse/>}></Route>
+             <Route path="/Requests" element={<VendorRequests/>}></Route>
       </Routes>
     </BrowserRouter>
     </AdminProvider>
