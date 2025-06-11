@@ -22,6 +22,8 @@ import Help from "./Pages/Help";
 import Forget from "./Pages/Forget";
 import Warehouse from "./Pages/Warehouse";
 import VendorRequests from "./Pages/VendorRequests";
+import OrganizationRegister from "./Pages/OrganizationRegister";
+import Vendoerregister from "./Pages/Vendorregister";
 function App() {
   return (
     <div>
@@ -51,6 +53,8 @@ function App() {
          <Route path="/Forget" element={<Forget/>}></Route>
           <Route path="/Warehouse" element={<Warehouse/>}></Route>
              <Route path="/Requests" element={<VendorRequests/>}></Route>
+             <Route path="/OrgRegister" element={<OrganizationRegister/>}></Route>
+             <Route path="/VendorRegister" element={<Vendoerregister/>}></Route>
       </Routes>
     </BrowserRouter>
     </AdminProvider>

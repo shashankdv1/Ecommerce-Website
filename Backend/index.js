@@ -5,12 +5,14 @@ const router=require("./routes/user");
 const adminrouter=require("./routes/Admin");
 const productRouter=require("./routes/Product");
 const Pagerouter=require("./routes/Pages");
+const Vendorrouter=require("./routes/Vendor");
 const cors = require("cors");
 const port=8000;
 const app = express();
 //const authMiddleware=require("./middlewears/index");
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const vendorRouter = require("./routes/Vendor");
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
@@ -32,7 +34,7 @@ app.use("/",router)
 app.use("/Admin",adminrouter); 
 app.use("/Items",productRouter);
 app.use("/Categories",Pagerouter);
-
+app.use("/vendor",vendorRouter);
 connectMongoDb("mongodb://127.0.0.1:27017/store-details");
 app.listen(port ,()=>{
 console.log(`Server started listening on port: ${port}`);
