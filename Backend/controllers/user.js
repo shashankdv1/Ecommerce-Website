@@ -5,12 +5,13 @@ const cron = require("node-cron");
 const userstatusModel=require("../models/userStatus");
 async function handleLogin(req,res){
     const {username,Email,password } = req.body;
+    try{
     const userDetail = await userModel.findOne({ 
         $or: [{ Email }, { username }]
     }); 
-    const Id=userDetail.userId;
-    const userstatus=await userstatusModel.findOne({userId:Id});
     if (!userDetail) return res.status(400).json({ msg: "user not found" });
+     const Id=userDetail?.userId;
+    const userstatus=await userstatusModel.findOne({userId:Id});
     const isMatch = await bcrypt.compare(password, userDetail.password);
     if(userstatus?.status==="Disabled" && isMatch) return res.status(201).json({status:"Disabled",msg:"Account is disabled"});
     if(userstatus?.deletionInitiated!==null) return res.status(201).json({status:"Archived",msg:"Account is scheduled for deletion"});
@@ -18,6 +19,10 @@ async function handleLogin(req,res){
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
      req.session.username = userDetail.username;
     res.json({  success: true, msg: "successful",name:userDetail.username });
+  }
+  catch(error){
+    return res.json({success:false,msg:"Internal Server error occured"});
+  }
 };
 
 async function handleRegistration(req,res)

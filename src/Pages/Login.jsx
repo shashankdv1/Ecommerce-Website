@@ -48,12 +48,16 @@ const Login=()=>
     setUser({ name: res.data.name});
     navigate("/Main");
   }
+  if(res.data.status==="Archived")
+  {
+    alert("Your account is going to be deleted");
+  }
   else{
     alert(res.data.msg());
   }
 }
 catch(error){
-  alert(error.response?.data?.msg ||"Login attempt was Unsuccessful");
+  alert(error.response?.data?.msg); /*||"Login attempt was Unsuccessful"*/
 }
   
   }
