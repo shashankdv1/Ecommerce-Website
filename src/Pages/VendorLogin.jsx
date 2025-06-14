@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { useVendor } from "../userContext";
+import { useNavigate } from "react-router-dom";
 function VendorLogin()
 {
      const { setVendor } = useVendor();
     const [email,setEmail]=useState("");
     const[password,setPassword]=useState("");
+    const navigate = useNavigate();
     async function handleLogin(e)
     {
         e.preventDefault();
@@ -14,7 +16,8 @@ function VendorLogin()
         if(res.data.success)
         {
             alert("You have successfully logged in Welcome "+res.data.OrgName);
-            setVendor(res.data.OrgName);
+            setVendor({OrgName:res.data.OrgName});
+            navigate("/Vendorcode");
         }
         else{
             alert(res.data.msg);

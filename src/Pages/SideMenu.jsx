@@ -1,6 +1,6 @@
 import Logout from "./Logout";
 import { useUser } from "../userContext"
-import Orders from "./Orders";
+//import Orders from "./Orders";
 function SideMenu()
 {
   const {user} = useUser();

@@ -25,6 +25,8 @@ import VendorRequests from "./Pages/VendorRequests";
 import OrganizationRegister from "./Pages/OrganizationRegister";
 import Vendoerregister from "./Pages/Vendorregister";
 import VendorLogin from "./Pages/VendorLogin";
+import VendorCode from "./Pages/VendorCode";
+
 function App() {
   return (
     <div>
@@ -54,10 +56,11 @@ function App() {
          <Route path="/Help" element={<Help/>}></Route>
          <Route path="/Forget" element={<Forget/>}></Route>
           <Route path="/Warehouse" element={<Warehouse/>}></Route>
-             <Route path="/Requests" element={<VendorRequests/>}></Route>
+         <Route path="/Requests" element={<VendorRequests/>}></Route>
              <Route path="/OrgRegister" element={<OrganizationRegister/>}></Route>
              <Route path="/VendorRegister" element={<Vendoerregister/>}></Route>
-             <Route path="/VendorLogin" element={<VendorLogin/>}></Route>
+        <Route path="/VendorLogin" element={<VendorLogin/>}></Route>
+        <Route path="/vendorCode" element={<VendorCode/>}></Route>
       </Routes>
     </BrowserRouter>
     </VendorProvider>

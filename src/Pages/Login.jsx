@@ -53,7 +53,7 @@ const Login=()=>
   }
 }
 catch(error){
-  alert(error.response?.data?.msg ||"If Your Enabled now try logging in again!");
+  alert(error.response?.data?.msg ||"Login attempt was Unsuccessful");
 }
   
   }
