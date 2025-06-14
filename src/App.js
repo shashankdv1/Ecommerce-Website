@@ -3,7 +3,7 @@ import Login from "./Pages/Login";
 import Main from "./Pages/Main";
 import Home from "./Pages/Home";
 import AddItems from "./Pages/AddItems";
-import { AdminProvider, UserProvider} from "./userContext"
+import { AdminProvider, UserProvider,VendorProvider} from "./userContext"
 import Registrations from "./Pages/Registration";
 import AdminDashboard from "./Pages/AdminDashboard";
 import AdminLogin from "./Pages/AdminLogin";
@@ -24,11 +24,13 @@ import Warehouse from "./Pages/Warehouse";
 import VendorRequests from "./Pages/VendorRequests";
 import OrganizationRegister from "./Pages/OrganizationRegister";
 import Vendoerregister from "./Pages/Vendorregister";
+import VendorLogin from "./Pages/VendorLogin";
 function App() {
   return (
     <div>
       <UserProvider>
         <AdminProvider>
+           <VendorProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/Login" element={<Login />}></Route>
@@ -55,8 +57,10 @@ function App() {
              <Route path="/Requests" element={<VendorRequests/>}></Route>
              <Route path="/OrgRegister" element={<OrganizationRegister/>}></Route>
              <Route path="/VendorRegister" element={<Vendoerregister/>}></Route>
+             <Route path="/VendorLogin" element={<VendorLogin/>}></Route>
       </Routes>
     </BrowserRouter>
+    </VendorProvider>
     </AdminProvider>
     </UserProvider>
     </div>

@@ -5,7 +5,6 @@ const router=require("./routes/user");
 const adminrouter=require("./routes/Admin");
 const productRouter=require("./routes/Product");
 const Pagerouter=require("./routes/Pages");
-const Vendorrouter=require("./routes/Vendor");
 const cors = require("cors");
 const port=8000;
 const app = express();

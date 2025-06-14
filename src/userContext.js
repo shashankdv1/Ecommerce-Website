@@ -54,3 +54,29 @@ export const AdminProvider = ({ children }) => {
   );
 };
 
+const VendorContext = createContext();
+export const useVendor = () => useContext(VendorContext);
+
+export const VendorProvider = ({ children }) => {
+  const savedVendor = sessionStorage.getItem("vendor");
+  const [vendor, setVendor] = useState(savedVendor ? JSON.parse(savedVendor) : null);
+
+  const saveVendor = (vendorData) => {
+    if (vendorData) {
+      sessionStorage.setItem("vendor", JSON.stringify(vendorData));
+      if(vendorData.name===null){
+      sessionStorage.removeItem("vendor");
+    }
+    } else{
+      sessionStorage.removeItem("vendor");
+    }
+    setVendor(vendorData);
+  };
+
+  return (
+    <VendorContext.Provider value={{ vendor, setVendor: saveVendor }}>
+      {children}
+    </VendorContext.Provider>
+  );
+};
+

@@ -1,3 +1,4 @@
+const vendorModel = require("../models/Vendor");
 const VendorModel = require("../models/Vendor");
 const bcrypt = require("bcryptjs");
 async function handleRegistration(req,res)
@@ -31,4 +32,26 @@ async function handleRegistration(req,res)
   res.json({ success: true, msg: "Vendor registered successfully" });
 };
 
-module.exports={handleRegistration}
+async function handleLogin(req,res)
+{
+  const{email,password}=req.body;
+  try{
+  const existingVendorModel=await vendorModel.findOne({Email: email});
+  if(!existingVendorModel)
+  {
+    return res.status(400).json({msg:"Provided Email does not exists"})
+  }
+  const isMatch=  await bcrypt.compare(password,existingVendorModel.password);
+  if(isMatch)
+  {
+    return res.status(200).json({success:true,msg:"You have successfully logged in",OrgName: existingVendorModel.OrganizationName});
+  }
+  return res.json(401).json({success:false,msg:"You entered an wrong password or email Please reenter your credentials"});
+  }
+  catch(error)
+  {
+    return res.status(500).json({msg:"Internal Server error"});
+  }
+}
+
+module.exports={handleRegistration,handleLogin};
