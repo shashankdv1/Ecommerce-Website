@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cron = require("node-cron");
 const userstatusModel=require("../models/userStatus");
+let timeoutId=0;
 async function handleLogin(req,res){
     const {username,Email,password } = req.body;
     try{
@@ -14,11 +15,11 @@ async function handleLogin(req,res){
     const userstatus=await userstatusModel.findOne({userId:Id});
     const isMatch = await bcrypt.compare(password, userDetail.password);
     if(userstatus?.status==="Disabled" && isMatch) return res.status(201).json({status:"Disabled",msg:"Account is disabled"});
-    if(userstatus?.deletionInitiated!==null) return res.status(201).json({status:"Archived",msg:"Account is scheduled for deletion"});
+    if(userstatus.deletionInitiated === true || userstatus.deletionCompleted === true) return res.status(201).json({status:"Archived",msg:"Account is scheduled for deletion"});
       if(userstatus?.status==="deleted") return res.status(401).json({status:"Deleted",msg:"your Account is deleted"});
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
      req.session.username = userDetail.username;
-    res.json({  success: true, msg: "successful",name:userDetail.username });
+    res.json({  success: true, msg: "successful",name:userDetail.username,status:"Active" });
   }
   catch(error){
     return res.json({success:false,msg:"Internal Server error occured"});
@@ -161,7 +162,7 @@ const deleteAccount = async (req, res) => {
 
       console.log(`Scheduled deletion at: ${targetDate}`);
 
-      setTimeout(async () => {
+    timeoutId= setTimeout(async () => {
         await statusDoc.updateOne(
           { userId: Id },
           { $set: { status: "deleted" } }
@@ -193,7 +194,7 @@ const enableAccount = async (req, res) => {
     }
 
     const Id = user.userId;
-    const statusDetails = await userstatusModel.findOne({ userId: Id });
+    const statusDetails = await userstatusModel.findOne({ Id });
 
     if (!statusDetails) {
       return res.status(404).json({
@@ -223,6 +224,33 @@ const enableAccount = async (req, res) => {
   }
 };
 
+async function activateAccount(req,res)
+{
+  const {Email}=req.body;
+  const userFound = await userModel.findOne({Email});
+  const Id=userFound.userId;
+  try{
+    const statusDoc=await userstatusModel.findOne({ userId: Id });
+    if(statusDoc?.deletionCompleted!==null)
+    {
+   (timeoutId==0)?timeoutId=0:clearTimeout(timeoutId);
+   const setter = { userId:Id };
+
+  await userstatusModel.updateOne(setter, { $unset: { deletionInitiated: "",deletionCompleted:"" } });
+     statusDoc.status="Active";
+     await statusDoc.save();
+   res.status(200).json({success:true,msg:"Account activatation was successful"});
+    }
+  }
+  catch(error)
+  {
+    return res.status(500).json({
+       success: false,
+      msg: `Internal Server Error: ${error.message}`,
+    })
+  }
+}
+
 function verifyToken(req, res, next) {
     const token = req.cookies.token;
     if (!token) return res.status(401).json({ msg: "Unauthorized" });
@@ -243,5 +271,6 @@ module.exports = {
     verifyToken,
     disableAccount,
     enableAccount,
-    deleteAccount
+    deleteAccount,
+    activateAccount
 }
