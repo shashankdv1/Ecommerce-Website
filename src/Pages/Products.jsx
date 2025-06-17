@@ -28,19 +28,12 @@ setErr(error);
 },[])
 if(err)return(<h1>Something Went Wrong,Please Try Again Later</h1>);
 return(<>
-<label for="mblCount">Total Mobiles are: </label>
-<h1 name="mblCount">{mobileCount}</h1>
-<label for="mblCount">Total Electronics Items are: </label>
-<h1 name="mblCount">{ElecCount}</h1>
-<label for="mblCount">Total Grocery Items are: </label>
-<h1 name="mblCount">{GroceryCount}</h1>
-<label for="mblCount">Total HomeItems are:</label>
-<h1 name="mblCount">{HomeItemcnt}</h1>
-<label for="mblCount">Total Books are:</label>
-<h1 name="mblCount">{Bookscnt}</h1>
-<label for="mblCount">Total AutoMobile Parts are:</label>
-<h1 name="mblCount">{Autocnt
-    }</h1>
+<p>Total Mobiles are: {mobileCount}</p><br/>
+<p>Total Electronics Items are: {ElecCount}</p><br/>
+<p>Total Grocery Items are: {GroceryCount}</p><br/>
+<p>Total HomeItems are: {HomeItemcnt}</p><br/>
+<p>Total Books are: {Bookscnt}</p><br/>
+<p>Total AutoMobile Parts are: {Autocnt}</p>
 </>)
 }
 

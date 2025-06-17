@@ -1,7 +1,7 @@
 const productModel = require("../models/Products");
 const handleMobile=async(req,res)=>{
 try{
-      const mobileModels = await productModel.find({ Category: "Mobile" });
+      const mobileModels = await productModel.find({ category: "Mobile" });
     if (!mobileModels || mobileModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -9,13 +9,13 @@ try{
 
 }
 catch (error) {
-     console.error("Error rendering Mobile Category items:", error);
+     console.error("Error rendering Mobile category items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
 const handleElectronics=async(req,res)=>{
 try{
-      const electronicModels = await productModel.find({ Category: "Electronics" });
+      const electronicModels = await productModel.find({ category: "Electronics" });
     if (!electronicModels || electronicModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -23,13 +23,13 @@ try{
 
 }
 catch (error) {
-     console.error("Error rendering Electronics Category items:", error);
+     console.error("Error rendering Electronics category items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
 const handleHomeItems=async(req,res)=>{
 try{
-      const homeModels = await productModel.find({ Category: "Appliances" });
+      const homeModels = await productModel.find({ category: "Appliances" });
     if (!homeModels || homeModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -37,13 +37,13 @@ try{
 
 }
 catch (error) {
-     console.error("Error rendering Home Category items:", error);
+     console.error("Error rendering Home category items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
 const handleGroceries=async(req,res)=>{
 try{
-      const GroceryModels = await productModel.find({ Category: "Groceries" });
+      const GroceryModels = await productModel.find({ category: "Groceries" });
     if (!GroceryModels || GroceryModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -51,13 +51,13 @@ try{
 
 }
 catch (error) {
-     console.error("Error rendering Grocery Category items:", error);
+     console.error("Error rendering Grocery category items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
 const handleBooks=async(req,res)=>{
 try{
-      const BooksModels = await productModel.find({ Category: "Books" });
+      const BooksModels = await productModel.find({ category: "Books" });
     if (!BooksModels || BooksModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -65,13 +65,13 @@ try{
 
 }
 catch (error) {
-     console.error("Error rendering Books Category items:", error);
+     console.error("Error rendering Books category items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
 const handleAutoMobile=async(req,res)=>{
 try{
-      const autoMobileModels = await productModel.find({ Category: "AutoMobile" });
+      const autoMobileModels = await productModel.find({ category: "AutoMobile" });
     if (!autoMobileModels || autoMobileModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -79,7 +79,7 @@ try{
 
 }
 catch (error) {
-     console.error("Error rendering AutoMobile Category items:", error);
+     console.error("Error rendering AutoMobile category items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
@@ -98,19 +98,19 @@ const end = new Date(Date.UTC(year, 6, 1));
 
 }
 catch (error) {
-     console.error("Error rendering AutoMobile Category items:", error);
+     console.error("Error rendering AutoMobile category items:", error);
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
 const getProductStats=async(req,res)=>{
     
     try{
-      const MblCount=await productModel.countDocuments({Category:"Mobile"});
-    const ElectronicsCount = await productModel.countDocuments({Category:"Electronics"});
-    const GroceryCount = await productModel.countDocuments({Category:"Groceries"});
-    const HomeItemsCount = await productModel.countDocuments({Category:"Appliances"});
-    const BooksCount = await productModel.countDocuments({Category:"Books"});
-    const AutoMobileCount = await productModel.countDocuments({Category:"AutoMobile"});
+      const MblCount=await productModel.countDocuments({category:"Mobile"});
+    const ElectronicsCount = await productModel.countDocuments({category:"Electronics"});
+    const GroceryCount = await productModel.countDocuments({category:"Groceries"});
+    const HomeItemsCount = await productModel.countDocuments({category:"Appliances"});
+    const BooksCount = await productModel.countDocuments({category:"Books"});
+    const AutoMobileCount = await productModel.countDocuments({category:"AutoMobile"});
         return res.status(200).json({success:true,MobileCount:MblCount,ElecCount:ElectronicsCount,GroceryCnt:GroceryCount,HomeItemsCnt:HomeItemsCount,BooksCnt:BooksCount,AutoCnt:AutoMobileCount});
     }
 
