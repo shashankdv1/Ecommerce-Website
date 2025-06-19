@@ -1,5 +1,6 @@
 const vendorModel = require("../models/Vendor");
 const VendorModel = require("../models/Vendor");
+const OrganizationModel=require("../models/Organization");
 const bcrypt = require("bcryptjs");
 async function handleRegistration(req,res)
 {
@@ -52,6 +53,11 @@ async function handleLogin(req,res)
   {
     return res.status(500).json({msg:"Internal Server error"});
   }
+}
+
+async function OrganizationCode(req,res)
+{
+
 }
 
 module.exports={handleRegistration,handleLogin};

@@ -11,9 +11,12 @@ function VendorCode()
     }
 return(<>
 <p>Welcome {vendor.OrgName}</p>
-<input type="text" placeholder="Please Enter your Place Name"></input><br/>
+<form /*onSubmit={}*/>
+<label for="cityName">City: </label><input type="text" name="cityName" placeholder="Please Enter your Place Name" required></input><br/>
+<label for="warehousename">Warehouse Name: </label><input type="text" name="warehousename" placeholder="Please Enter your Warehouse Name" required></input><br/>
 <label for="States">Choose your Warehouse State: </label>
 <select name="States" id="States">
+     <option value="StateName">State Name</option>
   <option value="Andhra Pradesh">Andhra Pradesh</option>
   <option value="Arunachal Pradesh">Arunachal Pradesh</option>
   <option value="Assam">Assam</option>
@@ -41,7 +44,9 @@ return(<>
                       <option value="Uttar Pradesh">Uttar Pradesh</option>
                        <option value="Uttarakhand">Uttarakhand</option>
                         <option value="West Bengal">West Bengal</option>
-</select>
+</select><br/>
+<button type="submit">Submit</button>
+</form>
 </>)
 }
 export default VendorCode;
