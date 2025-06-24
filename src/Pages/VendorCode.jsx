@@ -1,8 +1,28 @@
+import { useState } from "react";
 import { useVendor } from "../userContext";
+import axios from "axios";
 function VendorCode()
 {
     const {vendor}=useVendor();
+const[city,setCity]=useState("");
+const[wareHouse,setWarehouse]=useState("");
+const[state,setState]=useState("");
+   async function generateCode()
+    {
+   const response=await axios.get("http://localhost:8000/vendor/generateCode",{city,wareHouse,state});
 
+  try{
+    if(response.data.success)
+    {
+      
+    }
+  }
+  catch(response)
+  {
+
+  }
+
+    }
     if(vendor?.OrgName==null)
     {
         return(<>
@@ -11,11 +31,11 @@ function VendorCode()
     }
 return(<>
 <p>Welcome {vendor.OrgName}</p>
-<form /*onSubmit={}*/>
-<label for="cityName">City: </label><input type="text" name="cityName" placeholder="Please Enter your Place Name" required></input><br/>
-<label for="warehousename">Warehouse Name: </label><input type="text" name="warehousename" placeholder="Please Enter your Warehouse Name" required></input><br/>
+<form onSubmit={generateCode}>
+<label for="cityName">City: </label><input onChange={(e)=>{setCity(e.target.value)}} type="text" name="cityName" placeholder="Please Enter your Place Name" required></input><br/>
+<label for="warehousename">Warehouse Name: </label><input onChange={(e)=>{setWarehouse(e.target.value)}} type="text" name="warehousename" placeholder="Please Enter your Warehouse Name" required></input><br/>
 <label for="States">Choose your Warehouse State: </label>
-<select name="States" id="States">
+<select  onChange={(e)=>{setState(e.target.value)}}  name="States" id="States">
      <option value="StateName">State Name</option>
   <option value="Andhra Pradesh">Andhra Pradesh</option>
   <option value="Arunachal Pradesh">Arunachal Pradesh</option>

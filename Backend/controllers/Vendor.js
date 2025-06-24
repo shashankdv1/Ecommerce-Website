@@ -57,7 +57,21 @@ async function handleLogin(req,res)
 
 async function OrganizationCode(req,res)
 {
+const{}=req.body;
+try{
+const existingOrganizationModel=await OrganizationCode.findOne({Email:email});
+if(!existingOrganizationModel)
+{
+  return res.status(400).json({msg:"Provided Organizationa Email does not exists"});
+}
+return res.status(200).json({success:true,msg:"OrganizationalCode successfully generated"});
+
 
 }
+catch(error)
+{
+return res.status(500).json({msg:"Internal Server error"});
+}
+}
 
-module.exports={handleRegistration,handleLogin};
+module.exports={handleRegistration,handleLogin,OrganizationCode};
