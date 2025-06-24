@@ -5,23 +5,24 @@ function VendorCode()
 {
     const {vendor}=useVendor();
 const[city,setCity]=useState("");
-const[wareHouse,setWarehouse]=useState("");
+const[warehouseName,setWarehouse]=useState("");
 const[state,setState]=useState("");
    async function generateCode()
     {
-   const response=await axios.get("http://localhost:8000/vendor/generateCode",{city,wareHouse,state});
-
-  try{
+       try{
+   const response=await axios.post("http://localhost:8000/vendor/generateCode",{city,warehouseName,state});
     if(response.data.success)
     {
-      
+      alert("Warehouse creation was successful!");
+
+    }
+    else{
+      alert(response.data.msg);
     }
   }
-  catch(response)
-  {
-
-  }
-
+   catch(error){
+        alert(error?.data?.msg || "Internal server error occured");
+    }
     }
     if(vendor?.OrgName==null)
     {
@@ -31,11 +32,11 @@ const[state,setState]=useState("");
     }
 return(<>
 <p>Welcome {vendor.OrgName}</p>
-<form onSubmit={generateCode}>
+<form onSubmit={(e)=>{e.preventDefault();generateCode();}}>
 <label for="cityName">City: </label><input onChange={(e)=>{setCity(e.target.value)}} type="text" name="cityName" placeholder="Please Enter your Place Name" required></input><br/>
 <label for="warehousename">Warehouse Name: </label><input onChange={(e)=>{setWarehouse(e.target.value)}} type="text" name="warehousename" placeholder="Please Enter your Warehouse Name" required></input><br/>
 <label for="States">Choose your Warehouse State: </label>
-<select  onChange={(e)=>{setState(e.target.value)}}  name="States" id="States">
+<select  onChange={(e)=>{if(e.target.value!="State Name"){setState(e.target.value)}}}  name="States" id="States">
      <option value="StateName">State Name</option>
   <option value="Andhra Pradesh">Andhra Pradesh</option>
   <option value="Arunachal Pradesh">Arunachal Pradesh</option>

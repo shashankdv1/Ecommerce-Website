@@ -1,9 +1,76 @@
 const vendorModel = require("../models/Vendor");
 const VendorModel = require("../models/Vendor");
-const OrganizationModel=require("../models/Organization");
 const bcrypt = require("bcryptjs");
+const WarehouseModel=require("../models/Warehouse");
+
+async function WarehouseCode(req,res)
+{
+  try{
+  const{city,warehouseName,state}=req.body;
+  if(!city ||!warehouseName ||!state)
+  {
+    return res.status(400).json({ msg: "All fields are required" });
+  }
+  const existingWarehouseModel=await WarehouseModel.findOne({warehouseName});
+  if(existingWarehouseModel)
+  {
+     return res.status(400).json({ msg: "Warehouse already exists" });
+  }
+  const warehouse=await WarehouseModel.findOne({}).sort({ warehouseId: -1 });
+    let warehouseId = 1;
+  if (typeof warehouse?.warehouseId !== "undefined") {
+    warehouseId = warehouse.warehouseId + 1;
+  }
+  const code = {
+      "Andhra Pradesh": 123,
+      "Arunachal Pradesh": 201,
+      "Assam": 204,
+      "Bihar": 205,
+      "Chhatisgarh": 301,
+      "Goa": 221,
+      "Haryana": 333, 
+      "Himachal Pradesh": 222, 
+      "Jharkhand": 224,        
+      "Karnataka": 167,
+      "Kerala": 401,
+      "Madhya Pradesh": 111,
+      "Maharastra": 264,
+      "Manipur": 222,
+      "Meghalaya": 64,
+      "Mizoram": 65,
+      "Nagaland": 63,
+      "Odisha": 336,
+      "Punjab": 777,
+      "Rajasthan": 100,
+      "Sikkim": 260,
+      "Tamil Nadu": 444,
+      "Telegana": 101,
+      "Tripura": 233,
+      "Uttar Pradesh": 451,
+      "Uttarakhand": 29,
+      "West Bengal": 12
+    };
+  let codeValue=code[state];
+  const organizationCode=`${codeValue}-${warehouseId}`;
+  const newWarehouse=new WarehouseModel({
+    city,
+    warehouseName,
+    state,
+    warehouseId,
+    organizationCode
+  });
+  await newWarehouse.save();
+  res.json({success: true, msg: "Warehouse registered successfully"});
+}
+catch(error)
+{
+  return res.status(500).json("Internal Server error Occured");
+}
+
+}
 async function handleRegistration(req,res)
 {
+  try{
     const { Email,Mobile,OrganizationName,password} = req.body;
     if (!Email || !Mobile || !OrganizationName || !password) {
         return res.status(400).json({ msg: "All fields are required" });
@@ -31,6 +98,11 @@ async function handleRegistration(req,res)
   });
   await newVendor.save();
   res.json({ success: true, msg: "Vendor registered successfully" });
+}
+catch(error)
+{
+  return res.status(500).json("Internal Server error Occured");
+}
 };
 
 async function handleLogin(req,res)
@@ -55,23 +127,5 @@ async function handleLogin(req,res)
   }
 }
 
-async function OrganizationCode(req,res)
-{
-const{}=req.body;
-try{
-const existingOrganizationModel=await OrganizationCode.findOne({Email:email});
-if(!existingOrganizationModel)
-{
-  return res.status(400).json({msg:"Provided Organizationa Email does not exists"});
-}
-return res.status(200).json({success:true,msg:"OrganizationalCode successfully generated"});
 
-
-}
-catch(error)
-{
-return res.status(500).json({msg:"Internal Server error"});
-}
-}
-
-module.exports={handleRegistration,handleLogin,OrganizationCode};
+module.exports={handleRegistration,handleLogin,WarehouseCode};
