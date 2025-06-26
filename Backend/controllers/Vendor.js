@@ -127,5 +127,9 @@ async function handleLogin(req,res)
   }
 }
 
+async function warehouseDetails(req,res)
+{
+  
+}
 
 module.exports={handleRegistration,handleLogin,WarehouseCode};
