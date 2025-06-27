@@ -129,7 +129,18 @@ async function handleLogin(req,res)
 
 async function warehouseDetails(req,res)
 {
-  
+  try{
+    const existingWarehouse = await WarehouseModel.find({});
+    const warehouseLatest= await WarehouseModel.findOne({}).sort({Id:-1});
+     dataLength=warehouseLatest?.Id;
+  if (!existingWarehouse) {
+       return res.status(401).json({ success: false, msg: "Product not found"});
+    }
+    res.status(200).json({ success: true,items:existingWarehouse,len:dataLength});
+  } catch (error) {
+     console.error("Error rendering items:", error);
+    res.status(500).json({ success: false, msg: "Internal server error" });
+  }
 }
 
-module.exports={handleRegistration,handleLogin,WarehouseCode};
+module.exports={handleRegistration,handleLogin,WarehouseCode,warehouseDetails};

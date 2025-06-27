@@ -20,7 +20,7 @@ import Orders from "./Pages/Orders";
 import Products from "./Pages/Products";
 import Help from "./Pages/Help";
 import Forget from "./Pages/Forget";
-import Warehouse from "./Pages/Warehouse";
+import WarehouseDashboard from "./Pages/WarehouseDashboard";
 import VendorRequests from "./Pages/VendorRequests";
 import OrganizationRegister from "./Pages/OrganizationRegister";
 import Vendoerregister from "./Pages/Vendorregister";
@@ -55,7 +55,7 @@ function App() {
          <Route path="/Products" element={<Products/>}></Route>
          <Route path="/Help" element={<Help/>}></Route>
          <Route path="/Forget" element={<Forget/>}></Route>
-          <Route path="/Warehouse" element={<Warehouse/>}></Route>
+          <Route path="/Warehouse" element={<WarehouseDashboard/>}></Route>
          <Route path="/Requests" element={<VendorRequests/>}></Route>
              <Route path="/OrgRegister" element={<OrganizationRegister/>}></Route>
              <Route path="/VendorRegister" element={<Vendoerregister/>}></Route>
