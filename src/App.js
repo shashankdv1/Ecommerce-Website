@@ -26,6 +26,8 @@ import OrganizationRegister from "./Pages/OrganizationRegister";
 import Vendoerregister from "./Pages/Vendorregister";
 import VendorLogin from "./Pages/VendorLogin";
 import VendorCode from "./Pages/VendorCode";
+import VendorMain from "./Pages/VendorMain";
+import RequestManagement from './Pages/RequestManagement';
 
 function App() {
   return (
@@ -61,6 +63,8 @@ function App() {
              <Route path="/VendorRegister" element={<Vendoerregister/>}></Route>
         <Route path="/VendorLogin" element={<VendorLogin/>}></Route>
         <Route path="/vendorCode" element={<VendorCode/>}></Route>
+         <Route path="/vendorMain" element={<VendorMain/>}></Route>
+            <Route path="/requestManagement" element={<RequestManagement/>}></Route>
       </Routes>
     </BrowserRouter>
     </VendorProvider>

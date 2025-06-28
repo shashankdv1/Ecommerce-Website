@@ -1,6 +1,5 @@
 import Logout from "./Logout";
 import { useUser } from "../userContext"
-//import Orders from "./Orders";
 function SideMenu()
 {
   const {user} = useUser();
@@ -10,7 +9,7 @@ function SideMenu()
         <li class="bg-red-100">{"Guest"}</li>
         <button><a href="http://localhost:3000/Login">Login</a></button>
         
-        <button><a href="http://localhost:3000/Register">Register</a></button>
+        <button><a href="http://localhost:3000/VendorRegister">Register</a></button>
         <button><a href="http://localhost:3000/Help">Help and Support</a></button>
         </>
      }

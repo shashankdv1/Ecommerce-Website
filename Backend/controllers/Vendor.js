@@ -2,7 +2,7 @@ const vendorModel = require("../models/Vendor");
 const VendorModel = require("../models/Vendor");
 const bcrypt = require("bcryptjs");
 const WarehouseModel=require("../models/Warehouse");
-
+const ItemRequestModel=require("../models/ItemRequest");
 async function WarehouseCode(req,res)
 {
   try{
@@ -143,4 +143,49 @@ async function warehouseDetails(req,res)
   }
 }
 
-module.exports={handleRegistration,handleLogin,WarehouseCode,warehouseDetails};
+async function RequestManagement(req,res)
+{
+  const {ProductName,Price,Category,OrganizationCode,ProductDescription,Image}= req.body;   
+
+  const OrgCheck = await WarehouseModel.findOne({organizationCode:OrganizationCode});
+  if(!OrgCheck)
+  {
+    return res.status(400).json({success: false, msg: "Organization  code you entered is invalid"});
+    
+  }
+  try{
+    const latest = await ItemRequestModel.findOne({}).sort({RequestId:-1});
+    let RequestId=1;
+ if(typeof latest?.RequestId !== "undefined")
+  {
+    Id=latest.RequestId+1;
+  }
+  const existingRequest = await ItemRequestModel.findOne({ProductName});
+   if (existingRequest) {
+      return res.status(400).json({ success: false, msg: "Request with this Productname already exists" });
+    }
+      const Image = req.file ? {
+          data: req.file.buffer,
+          contentType: req.file.mimetype,
+        } : null;
+        const newRequest = new ItemRequestModel({
+          RequestId,
+          ProductName,
+          Price,
+          Category,
+         OrganizationCode,
+          ProductDescription,
+          Image,
+        });
+        await newRequest.save();
+          res.status(200).json({ success: true});
+  }
+  catch(error)
+  {
+     console.error(error);
+    res.status(500).json({ success: false, msg: "Internal server error" });
+
+  }
+}
+
+module.exports={handleRegistration,handleLogin,WarehouseCode,warehouseDetails,RequestManagement};
