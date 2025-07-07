@@ -22,12 +22,12 @@ import Help from "./Pages/Help";
 import Forget from "./Pages/Forget";
 import WarehouseDashboard from "./Pages/WarehouseDashboard";
 import VendorRequests from "./Pages/VendorRequests";
-import OrganizationRegister from "./Pages/OrganizationRegister";
 import Vendoerregister from "./Pages/Vendorregister";
 import VendorLogin from "./Pages/VendorLogin";
 import VendorCode from "./Pages/VendorCode";
 import VendorMain from "./Pages/VendorMain";
 import RequestManagement from './Pages/RequestManagement';
+import PriorityRequests from './Pages/PriorityRequests';
 
 function App() {
   return (
@@ -58,13 +58,13 @@ function App() {
          <Route path="/Help" element={<Help/>}></Route>
          <Route path="/Forget" element={<Forget/>}></Route>
           <Route path="/Warehouse" element={<WarehouseDashboard/>}></Route>
-         <Route path="/Requests" element={<VendorRequests/>}></Route>
-             <Route path="/OrgRegister" element={<OrganizationRegister/>}></Route>
+         <Route path="/WarehouseRequests" element={<VendorRequests/>}></Route>
              <Route path="/VendorRegister" element={<Vendoerregister/>}></Route>
         <Route path="/VendorLogin" element={<VendorLogin/>}></Route>
         <Route path="/vendorCode" element={<VendorCode/>}></Route>
          <Route path="/vendorMain" element={<VendorMain/>}></Route>
             <Route path="/requestManagement" element={<RequestManagement/>}></Route>
+                        <Route path="/MainRequests" element={<PriorityRequests/>}></Route>
       </Routes>
     </BrowserRouter>
     </VendorProvider>

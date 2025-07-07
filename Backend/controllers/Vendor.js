@@ -3,6 +3,8 @@ const VendorModel = require("../models/Vendor");
 const bcrypt = require("bcryptjs");
 const WarehouseModel=require("../models/Warehouse");
 const ItemRequestModel=require("../models/ItemRequest");
+const priorityRequestModel=require("../models/PriorityRequests.js");
+const productModel=require("../models/Products.js");
 async function WarehouseCode(req,res)
 {
   try{
@@ -187,5 +189,38 @@ async function RequestManagement(req,res)
 
   }
 }
+async function handlePriorities(req,res)
+{
+  const {ProductName,Options,request}=req.body;
+  console.log(req.body);
+  const ItemCheck = await productModel.findOne({name:ProductName});
+  if(!ItemCheck && (Options==="PriceChange" || Options==="DeleteItem"))
+  {
+ return res.status(400).json({success: false, msg: "Item does not exist hence change in item price or deletion of item  is not possible"});
+  }
+  try{
+ const latest = await priorityRequestModel.findOne({}).sort({priorityRequestId:-1});
+    let PriorityRequestId=1;
+ if(typeof latest?.PriorityRequestId !== "undefined")
+  {
+    PriorityRequestId=latest.PriorityRequestId+1;
+  }
+  const newPriorityRequest = new priorityRequestModel({
+    PriorityRequestId,
+    ProductName,
+    Options,
+    request
+  })
+  await newPriorityRequest.save();
+  res.status(200).json({success:true,msg:"Your request is successfully queued to be reviewed"});
+  }
+  catch(error)
+  {
+    console.error(error);
+    res.status(500).json({success:false,msg:"Internal server error"});
+  }
 
-module.exports={handleRegistration,handleLogin,WarehouseCode,warehouseDetails,RequestManagement};
+
+}
+
+module.exports={handleRegistration,handleLogin,WarehouseCode,warehouseDetails,RequestManagement,handlePriorities};
