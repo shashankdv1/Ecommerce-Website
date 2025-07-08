@@ -189,38 +189,54 @@ async function RequestManagement(req,res)
 
   }
 }
-async function handlePriorities(req,res)
-{
-  const {ProductName,Options,request}=req.body;
-  console.log(req.body);
-  const ItemCheck = await productModel.findOne({name:ProductName});
-  if(!ItemCheck && (Options==="PriceChange" || Options==="DeleteItem"))
-  {
- return res.status(400).json({success: false, msg: "Item does not exist hence change in item price or deletion of item  is not possible"});
-  }
-  try{
- const latest = await priorityRequestModel.findOne({}).sort({priorityRequestId:-1});
-    let PriorityRequestId=1;
- if(typeof latest?.PriorityRequestId !== "undefined")
-  {
-    PriorityRequestId=latest.PriorityRequestId+1;
-  }
-  const newPriorityRequest = new priorityRequestModel({
-    PriorityRequestId,
-    ProductName,
-    Options,
-    request
-  })
-  await newPriorityRequest.save();
-  res.status(200).json({success:true,msg:"Your request is successfully queued to be reviewed"});
-  }
-  catch(error)
-  {
-    console.error(error);
-    res.status(500).json({success:false,msg:"Internal server error"});
-  }
+async function handlePriorities(req, res) {
+  const { ProductName, Options, request } = req.body;
 
+  try {
+    const itemCheck = await productModel.findOne({
+      name: { $regex: new RegExp(`^${ProductName}$`, "i") }
+    });
 
+    if (!itemCheck &&(Options==="PriceChange" || Options==="DeleteItem")) {
+      return res.status(400).json({
+        success: false,
+        msg: "Item does not exist. Cannot perform request."
+      });
+    }
+    
+    // Get latest priorityRequestId
+    const latest = await priorityRequestModel.findOne().sort({ priorityRequestId: -1 });
+
+    let priorityRequestId = 1;
+    if (latest && latest.priorityRequestId) {
+      priorityRequestId = latest.priorityRequestId + 1;
+    }
+
+    // Prepare and save new request
+    const newPriorityRequest = new priorityRequestModel({
+      priorityRequestId,
+      productName: ProductName,
+      options: Options,
+      request
+    });
+
+    console.log("📝 Saving new priority request:", newPriorityRequest);
+
+    await newPriorityRequest.save();
+
+    return res.status(200).json({
+      success: true,
+      msg: "Your request is successfully queued to be reviewed"
+    });
+
+  } catch (error) {
+    console.error("🔥 Internal Server Error:", error);
+    return res.status(500).json({
+      success: false,
+      msg: "Internal server error"
+    });
+  }
 }
+
 
 module.exports={handleRegistration,handleLogin,WarehouseCode,warehouseDetails,RequestManagement,handlePriorities};

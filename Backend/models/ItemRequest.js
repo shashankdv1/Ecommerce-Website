@@ -9,8 +9,7 @@ RequestId:{
 },
 ProductName:{
     type:String,
-    required:true,
-    unique:true
+    required:true
 },
 Price:{
     type:Number,

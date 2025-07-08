@@ -17,9 +17,13 @@ async function sendRequest()
             alert(res.data.msg);
         }
     }
-    catch(error){
-        alert("Internal Server error");
-    }
+    catch(error) {
+  if (error.response) {
+    alert(error.response.data.msg);
+  } else {
+    alert("Internal Server Error");
+  }
+}
 
 }
 return(<>
