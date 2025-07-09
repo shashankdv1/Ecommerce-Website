@@ -204,17 +204,14 @@ async function handlePriorities(req, res) {
       });
     }
     
-    // Get latest priorityRequestId
     const latest = await priorityRequestModel.findOne().sort({ priorityRequestId: -1 });
 
-    let priorityRequestId = 1;
+    let Id = 1;
     if (latest && latest.priorityRequestId) {
-      priorityRequestId = latest.priorityRequestId + 1;
+      Id = latest.priorityRequestId + 1;
     }
-
-    // Prepare and save new request
     const newPriorityRequest = new priorityRequestModel({
-      priorityRequestId,
+      priorityRequestId:Id,
       productName: ProductName,
       options: Options,
       request
@@ -238,5 +235,24 @@ async function handlePriorities(req, res) {
   }
 }
 
+async function DisplayRequests(req,res)
+{
+  try{
+ const PriorityrequestData=await priorityRequestModel.find({});
+  if(PriorityrequestData)
+  {
+    return res.status(200).json({success:true,msg:"Requests gonna been successfully displayed",Prioritydata:PriorityrequestData});
+  }
+  else{
+     return res.status(400).json({success:false,msg:"Requests cannot be displayed"});
+  }
+  }
+  catch(error)
+  {
+    return res.status(500).json({success:false,msg:"Internal Server Error"});
+  }
 
-module.exports={handleRegistration,handleLogin,WarehouseCode,warehouseDetails,RequestManagement,handlePriorities};
+}
+
+
+module.exports={handleRegistration,handleLogin,WarehouseCode,warehouseDetails,RequestManagement,handlePriorities,DisplayRequests};

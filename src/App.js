@@ -28,6 +28,7 @@ import VendorCode from "./Pages/VendorCode";
 import VendorMain from "./Pages/VendorMain";
 import RequestManagement from './Pages/RequestManagement';
 import PriorityRequests from './Pages/PriorityRequests';
+import Displayrequests from "./Pages/Displayrequests";
 
 function App() {
   return (
@@ -64,7 +65,8 @@ function App() {
         <Route path="/vendorCode" element={<VendorCode/>}></Route>
          <Route path="/vendorMain" element={<VendorMain/>}></Route>
             <Route path="/requestManagement" element={<RequestManagement/>}></Route>
-                        <Route path="/MainRequests" element={<PriorityRequests/>}></Route>
+           <Route path="/MainRequests" element={<PriorityRequests/>}></Route>
+            <Route path="/DisplayRequests" element={<Displayrequests/>}></Route>
       </Routes>
     </BrowserRouter>
     </VendorProvider>
