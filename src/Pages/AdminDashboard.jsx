@@ -35,8 +35,9 @@ const removeItems=()=>{
     <button onClick={removeItems} class="w-16 h-16 bg-red-400 mt-7">RemoveItems</button><br />
     <button  class="w-16 h-16 bg-red-400 mt-7">Trending Products</button><br />
    <a href="http://localhost:3000/Warehouse"><button  class="w-16 h-16 bg-red-400 mt-7">WareHouses Management</button><br /></a>
-    <a href="http://localhost:3000/requestManagement"><button class="w-16 h-16 bg-red-400 mt-7">Requests Review</button><br/></a>
-    <a href="http://localhost:3000/Products"><button  class="w-16 h-16 bg-red-400 mt-7">Products CategoryWise</button></a>
+    <a href="http://localhost:3000/Displayrequests"><button class="w-16 h-16 bg-red-400 mt-7">Requests Review</button><br/></a>
+    <a href="http://localhost:3000/Products"><button  class="w-16 h-16 bg-red-400 mt-7">Products CategoryWise</button><br /></a>
+      <a><button  class="w-16 h-16 bg-red-400 mt-7">Delivery Management</button></a>
     </div>
     <div>
         <p>{countError}</p>

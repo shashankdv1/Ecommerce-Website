@@ -26,9 +26,9 @@ import Vendoerregister from "./Pages/Vendorregister";
 import VendorLogin from "./Pages/VendorLogin";
 import VendorCode from "./Pages/VendorCode";
 import VendorMain from "./Pages/VendorMain";
-import RequestManagement from './Pages/RequestManagement';
 import PriorityRequests from './Pages/PriorityRequests';
 import Displayrequests from "./Pages/Displayrequests";
+import DeliveryPartnerRegister from "./Pages/DeliveryPartnerRegister";
 
 function App() {
   return (
@@ -64,9 +64,9 @@ function App() {
         <Route path="/VendorLogin" element={<VendorLogin/>}></Route>
         <Route path="/vendorCode" element={<VendorCode/>}></Route>
          <Route path="/vendorMain" element={<VendorMain/>}></Route>
-            <Route path="/requestManagement" element={<RequestManagement/>}></Route>
            <Route path="/MainRequests" element={<PriorityRequests/>}></Route>
             <Route path="/DisplayRequests" element={<Displayrequests/>}></Route>
+            <Route path="/DeliveryPartnerRegister" element={<DeliveryPartnerRegister/>}></Route>
       </Routes>
     </BrowserRouter>
     </VendorProvider>
