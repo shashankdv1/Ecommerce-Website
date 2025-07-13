@@ -1,7 +1,7 @@
 const productModel = require("../models/Products");
 const handleMobile=async(req,res)=>{
 try{
-      const mobileModels = await productModel.find({ category: "Mobile" });
+      const mobileModels = await productModel.find({ category: "Mobile",approvedByAdmin:true});
     if (!mobileModels || mobileModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -15,7 +15,7 @@ catch (error) {
 };
 const handleElectronics=async(req,res)=>{
 try{
-      const electronicModels = await productModel.find({ category: "Electronics" });
+      const electronicModels = await productModel.find({ category: "Electronics",approvedByAdmin:true });
     if (!electronicModels || electronicModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -29,7 +29,7 @@ catch (error) {
 };
 const handleHomeItems=async(req,res)=>{
 try{
-      const homeModels = await productModel.find({ category: "Appliances" });
+      const homeModels = await productModel.find({ category: "Appliances",approvedByAdmin:true });
     if (!homeModels || homeModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -43,7 +43,7 @@ catch (error) {
 };
 const handleGroceries=async(req,res)=>{
 try{
-      const GroceryModels = await productModel.find({ category: "Groceries" });
+      const GroceryModels = await productModel.find({ category: "Groceries",approvedByAdmin:true });
     if (!GroceryModels || GroceryModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -57,7 +57,7 @@ catch (error) {
 };
 const handleBooks=async(req,res)=>{
 try{
-      const BooksModels = await productModel.find({ category: "Books" });
+      const BooksModels = await productModel.find({ category: "Books",approvedByAdmin:true });
     if (!BooksModels || BooksModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }
@@ -71,7 +71,7 @@ catch (error) {
 };
 const handleAutoMobile=async(req,res)=>{
 try{
-      const autoMobileModels = await productModel.find({ category: "AutoMobile" });
+      const autoMobileModels = await productModel.find({ category: "AutoMobile",approvedByAdmin:true });
     if (!autoMobileModels || autoMobileModels.length===0) {
        return res.json({ success: false, msg: "Product not found" });
     }

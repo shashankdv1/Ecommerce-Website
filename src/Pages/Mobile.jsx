@@ -4,7 +4,7 @@ import axios from "axios";
 function Mobile() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [mobiles, setMobiles] = useState([]);
+  const [Mobiles, setMobiles] = useState([]);
 
   useEffect(() => {
     axios
@@ -28,11 +28,16 @@ function Mobile() {
   if (error) return <p>{error}</p>;
 
   return (
+    <>
     <ul>
-      {mobiles.map((mobile) => (
-        <li key={mobile.Id}>{mobile.Name}</li>
-      ))}
-    </ul>
+  {Mobiles.map((mobile) => (
+    <>
+      <li key={`name-${mobile.Id}`}>{mobile.name}</li>
+      <li key={`desc-${mobile.Id}`}>{mobile.description}</li>
+    </>
+  ))}
+</ul>
+    </>
   );
 }
 

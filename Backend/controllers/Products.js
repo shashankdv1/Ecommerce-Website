@@ -1,22 +1,46 @@
+require('dotenv').config();
 const productModel = require("../models/Products");
+const warehouseModel = require("../models/Warehouse"); 
+
 const handleInsertion = async (req, res) => {
   try {
-    const {name, price, category, description } = req.body;
-    
-  const product = await productModel.findOne({}).sort({Id:-1});
-  let Id=1;
-  if(typeof product?.Id !== "undefined")
-  {
-    Id=product.Id+1;
-  }
-   const existingProduct = await productModel.findOne({ name });
-    if (existingProduct) {
-      return res.json({ success: false, msg: "Product with this ID already exists" });
+    const adminCode = process.env.ADMIN_CODE;
+    const { name, price, category, description, code } = req.body;
+
+    if (!name || !price || !category || !description || !code) {
+      return res.status(400).json({ success: false, msg: "All fields are required" });
     }
+
+    const warehouseCheck = await warehouseModel.findOne({ organizationCode: code });
+
+    let addedBy = "admin";
+    if (adminCode !== code) {
+      if (!warehouseCheck) {
+        return res.status(401).json({ success: false, msg: "The provided organization code is false" });
+      }
+      addedBy = "vendor";
+      approvedByAdmin=false;
+    }
+    if(adminCode===code)
+    {
+      approvedByAdmin=true;
+    }
+    const lastProduct = await productModel.findOne({}).sort({ Id: -1 });
+    let Id = lastProduct?.Id ? lastProduct.Id + 1 : 1;
+
+  
+    if(adminCode!==code){
+    const existingProduct = await productModel.findOne({ name, code });
+    if (existingProduct) {
+      return res.status(409).json({ success: false, msg: "Product with this Name already exists for given region" });
+    }
+  }
+  
     const image = req.file ? {
       data: req.file.buffer,
       contentType: req.file.mimetype,
     } : null;
+
     const newProduct = new productModel({
       Id,
       name,
@@ -24,19 +48,23 @@ const handleInsertion = async (req, res) => {
       category,
       description,
       image,
+      code,
+      addedBy,
+      approvedByAdmin
     });
-      
+
     await newProduct.save();
-    res.status(200).json({ success: true});
-   
+
+    return res.status(200).json({ success: true, msg: "Product inserted successfully" });
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, msg: "Internal server error" });
+    return res.status(500).json({ success: false, msg: "Internal server error" });
   }
 };
 const renderItems=async(req,res) =>{
 try {
-    const dataProduct = await productModel.find({}); 
+    const dataProduct = await productModel.find({approvedByAdmin:true}); 
     const dataLatest= await productModel.findOne({}).sort({Id:-1});
     dataLength=dataLatest?.Id;
     if (!dataProduct) {

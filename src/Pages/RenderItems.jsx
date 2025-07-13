@@ -38,7 +38,6 @@ const RenderItems = () => {
   product && product.name && (
     <ul key={product.Id || index}>
       <li>Product Name: {product.name}</li>
-      <li>Product Id: {product.Id}</li>
       <li>
         <img class="w-32 h-32"
           src={`http://localhost:8000/Items/getImage/${product.Id}`}

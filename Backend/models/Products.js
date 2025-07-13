@@ -25,6 +25,18 @@ image: {
   data: Buffer,
   contentType: String
 },
+code:{
+    type:String,
+    required:true
+},
+addedBy:{
+    type:String,
+    required:true
+},
+approvedByAdmin:{
+    type:Boolean,
+    required:true
+},
  addedOn: 
  { type: Date, default: Date.now }
 });

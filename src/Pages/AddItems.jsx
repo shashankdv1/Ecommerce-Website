@@ -2,23 +2,27 @@ import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAdmin } from "../userContext";
+import { useVendor } from "../userContext";
 function AddItems()
 {
         const {admin}=useAdmin();
+        const {vendor}=useVendor();
         const navigate=useNavigate();
-        const[username,setUsername]=useState("");
+        const[Itemname,setItemname]=useState("");
         const[price,setPrice]=useState("");
         const[image,setImage]=useState("");
         const[category,setCategory]=useState("");
         const[description,setDescription]=useState("");
+        const[code,setCode]=useState("");
         const ItemsInsertion=async(e)=>{
              e.preventDefault();
            const formData = new FormData();
-            formData.append("name", username);
+            formData.append("name", Itemname);
             formData.append("price", price);
             formData.append("category", category);
             formData.append("description", description);
             formData.append("image", image);
+            formData.append("code",code);
             try{
                     const res = await axios.post(
                        "http://localhost:8000/Items/AddItems",formData,
@@ -42,7 +46,7 @@ function AddItems()
                 }
             }     
             
-        if(admin===null)
+        if(admin===null || vendor===null)
             {
                
                 return <p>You do not have priviliges to access this page</p>
@@ -52,7 +56,7 @@ function AddItems()
         <form onSubmit={ItemsInsertion} className="flex flex-col">
         <div className="flex items-center gap-4">
             <label for="name">Name: </label>
-            <input onChange={(e)=>{setUsername(e.target.value)}} className="flex-1 border-b-2"type="text" name="username" placeholder="Enter your Product name"></input>
+            <input onChange={(e)=>{setItemname(e.target.value)}} className="flex-1 border-b-2"type="text" name="username" placeholder="Enter your Product name"></input>
             </div>
             <div className="flex items-center gap-4">
             <label for="price">Price: </label>
@@ -79,6 +83,7 @@ function AddItems()
             <h2>Add Image:</h2>
             <input type="file" onChange={(e) => setImage(e.target.files[0])} />
         </div>
+           <label for="code">Warehouse Code:</label> <input onChange={(e)=>{setCode(e.target.value)}} className="flex-1 border-b-2"type="text" name="code" placeholder="Enter your Warehouse Code" required></input>
             <button type="submit">Submit</button>
         </form>
         </div>
