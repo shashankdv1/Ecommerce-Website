@@ -5,6 +5,7 @@ const router=require("./routes/user");
 const adminrouter=require("./routes/Admin");
 const productRouter=require("./routes/Product");
 const Pagerouter=require("./routes/Pages");
+const Deliveryrouter=require("./routes/DeliveryPartner");
 const cors = require("cors");
 const port=8000;
 const app = express();
@@ -34,6 +35,7 @@ app.use("/Admin",adminrouter);
 app.use("/Items",productRouter);
 app.use("/Categories",Pagerouter);
 app.use("/vendor",vendorRouter);
+app.use("/Delivery",Deliveryrouter);
 connectMongoDb("mongodb://127.0.0.1:27017/store-details");
 app.listen(port ,()=>{
 console.log(`Server started listening on port: ${port}`);
