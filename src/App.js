@@ -29,7 +29,7 @@ import VendorMain from "./Pages/VendorMain";
 import PriorityRequests from './Pages/PriorityRequests';
 import Displayrequests from "./Pages/Displayrequests";
 import DeliveryPartnerRegister from "./Pages/DeliveryPartnerRegister";
-
+import DeliveryLogin from "./Pages/DeliveryLogin";
 function App() {
   return (
     <div>
@@ -67,6 +67,7 @@ function App() {
            <Route path="/MainRequests" element={<PriorityRequests/>}></Route>
             <Route path="/DisplayRequests" element={<Displayrequests/>}></Route>
             <Route path="/DeliveryPartnerRegister" element={<DeliveryPartnerRegister/>}></Route>
+            <Route path="/DeliveryLogin" element={<DeliveryLogin/>}></Route>
       </Routes>
     </BrowserRouter>
     </VendorProvider>

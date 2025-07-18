@@ -35,5 +35,14 @@ catch(error)
 }
 
 }
+const handleLogin=async(req,res)=>{
+    try{
 
-module.exports={handleRegistration};
+    }
+    catch(error)
+    {
+
+    }
+}
+
+module.exports={handleRegistration,handleLogin};
