@@ -4,6 +4,7 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer";
 import RenderItems from "./RenderItems";
 import SideMenu from "./SideMenu";
+import ItemSearch from './ItemSearch';
 function Main()
 {
     
@@ -26,14 +27,13 @@ function Main()
             setIsVisiblesideMenu(!isVisiblesideMenu);
       }
     }
+   
     return(
         <>
-
 <div class="relative">
 <div class="flex justify-normal">
     <a href="http://localhost:3000/"><p>Store App</p></a>
-    <input class="ml-20 w-52" type="text" placeholder="Please enter the search"></input>
-    <button><img class="w-4" src={require("../Images/search.png")}/></button>
+ <ItemSearch/>
     <button onClick={profileView} class="absolute right-0" >Your profile</button>
 </div>
 <div class="flex">
