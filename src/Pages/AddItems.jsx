@@ -46,7 +46,7 @@ function AddItems()
                 }
             }     
             
-        if(admin===null || vendor===null)
+        if(admin===null && vendor===null)
             {
                
                 return <p>You do not have priviliges to access this page</p>

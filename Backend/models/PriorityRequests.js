@@ -17,6 +17,9 @@ const priorityRequestSchema = new mongoose.Schema({
   request: {
     type: String,
     required: true
+  },
+  Price:{
+    type:Number
   }
 });
 

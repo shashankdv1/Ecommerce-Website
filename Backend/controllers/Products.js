@@ -110,5 +110,44 @@ catch(err)
   res.status(500).send("Server error");
 }
 }
+const handleSearch=async(req,res)=>{
+  try{
+    const {}=req.body();
+    const getSearch=await productModel.findOne({});
+    if(!getSearch)
+    {
 
-module.exports={handleInsertion,renderItems,getImage,deleteItems};
+    }
+    else{
+
+    }
+  }
+  catch(err){
+  res.status(500).json({success:false,msg:"Internal Server Error"});
+  }
+}
+
+const handleTrendingProducts=async(req,res)=>{
+  try{
+    const existingProducts = await productModel.findOne({});
+    if(!existingProducts)
+    {
+      return res.status(404).json({success:false,msg:"There are no products available"});
+    }
+    const currentDate=new Date();
+    const trendingDate=new Date(currentDate);
+    trendingDate.setDate(currentDate.getDate()-30);
+    const trendingProducts = await productModel.find({
+      addedOn: { $gte: trendingDate }
+    });
+    if(trendingProducts.length===0)
+    {
+         return res.status(404).json({success:false,msg:"There are no Trending products available"});
+    }
+return res.status(200).json({success: true,trendingProducts });
+  }
+  catch(error){
+    return res.status(500).json({success:false,msg:"Internal Server Error"});
+  }
+}
+module.exports={handleInsertion,renderItems,getImage,deleteItems,handleSearch,handleTrendingProducts};

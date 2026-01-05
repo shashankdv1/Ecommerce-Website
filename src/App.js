@@ -37,7 +37,7 @@ function App() {
         <AdminProvider>
            <VendorProvider>
     <BrowserRouter>
-      <Routes>
+          <Routes>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Register" element={<Registrations/>}></Route>
         <Route index element={<Home />} />
@@ -59,8 +59,8 @@ function App() {
          <Route path="/Help" element={<Help/>}></Route>
          <Route path="/Forget" element={<Forget/>}></Route>
           <Route path="/Warehouse" element={<WarehouseDashboard/>}></Route>
-         <Route path="/WarehouseRequests" element={<VendorRequests/>}></Route>
-             <Route path="/VendorRegister" element={<Vendoerregister/>}></Route>
+         <Route path="/WarehouseRequests" element={<VendorRequests/>}></Route>.
+        <Route path="/VendorRegister" element={<Vendoerregister/>}></Route>
         <Route path="/VendorLogin" element={<VendorLogin/>}></Route>
         <Route path="/vendorCode" element={<VendorCode/>}></Route>
          <Route path="/vendorMain" element={<VendorMain/>}></Route>

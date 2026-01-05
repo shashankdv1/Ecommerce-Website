@@ -1,9 +1,10 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
-function Displayrequests()
+async function Displayrequests()
 {
     const[Data,setData]=useState([]);
     const[NoData,setNoData]=useState("");
+    const[Approval,setApproval]=useState("");
     useEffect(()=>{
          async function fetchData(){
     try{
@@ -25,9 +26,15 @@ function Displayrequests()
     }
  fetchData(); 
 },[]);
-useEffect(() => {
-  console.log("Updated data:", Data); // ✅ This will fire after state is updated
-}, [Data]);
+if(Approval==='true')
+try{
+  const result=await axios.post("",{},{withCredentials:true});
+ 
+}
+catch(error)
+{
+
+}
   if(NoData===null)
     {
         return(<>
@@ -41,11 +48,11 @@ return(
   RequestData && RequestData.priorityRequestId && (
     <ul key={RequestData.priorityRequestId || index}>
       <li>Requested Product Name: {RequestData.productName}</li>
-      <li>RequestData Id: {RequestData.priorityRequestId}</li>
       <li>Options: {RequestData.options}</li>
        <li>RequestData Description: {RequestData.request}</li>
-      <button>Approve</button><br/>
-<button>Reject</button>
+      <button value="true" onClick={(e)=>{setApproval(e.target.value)}}>Approve</button><br/>
+<button value="false
+" onClick={(e)=>{setApproval(e.target.value)}}>Reject</button>
     </ul>
       )
 ))}

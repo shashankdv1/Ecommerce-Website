@@ -6,11 +6,10 @@ function Trending()
       const [loading, setLoading] = useState(true);
       const [trendingItems, setTrending] = useState([]);
        useEffect(() => {
-          axios
-            .get("http://localhost:8000/Categories/Trending")
-            .then((response) => {
-              if (response.data.success && response.data.trend) {
-                setTrending(response.data.trend);
+        const fetchTrending=async()=>{
+         await axios.get("http://localhost:8000/Items/trending").then((response) => {
+              if (response.data.success && response.data.trendingProducts) {
+                setTrending(response.data.trendingProducts);
               } else {
                 setError("No Trending Items found");
               }
@@ -21,7 +20,10 @@ function Trending()
               setError("Failed to fetch Trending items.");
               setLoading(false);
             });
+          }
+            fetchTrending();
         }, []);
+        
      if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 

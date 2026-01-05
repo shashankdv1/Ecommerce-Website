@@ -33,7 +33,9 @@ function Main()
 <div class="relative">
 <div class="flex justify-normal">
     <a href="http://localhost:3000/"><p>Store App</p></a>
- <ItemSearch/>
+
+
+
     <button onClick={profileView} class="absolute right-0" >Your profile</button>
 </div>
 <div class="flex">

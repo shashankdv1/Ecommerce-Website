@@ -4,8 +4,8 @@ import axios from "axios";
 const RenderItems = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [items, setItems] = useState([]); // array of products
-
+  const [items, setItems] = useState([]);
+  const[productName,setName]=useState("");
   useEffect(() => {
     axios
       .get("http://localhost:8000/Items/RenderItems")
@@ -27,6 +27,12 @@ const RenderItems = () => {
         setLoading(false);
       });
   }, []);
+  
+    async function handleAddtoCart()
+    {
+        const response= await axios.post("",{productName},{withCredentials:true});
+        
+    }
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -45,6 +51,16 @@ const RenderItems = () => {
         />
       </li>
       <li>Product Price: {product.price}</li>
+            <form action="post">
+        <input type="hidden" onChange={()=>{setName(product.name)}}></input>
+    <button onClick={handleAddtoCart}>Add To Cart</button>
+    </form>
+      <div className="flex">
+        <form>
+      <li className="ml-2"><a href="">Order</a></li>
+      <label className="ml-2" for="qty">Net Quantity</label><input name="qty" className="ml-2" type="number" min="1"/>
+      </form>
+      </div>
     </ul>
   )
 ))}

@@ -190,8 +190,8 @@ async function RequestManagement(req,res)
   }
 }
 async function handlePriorities(req, res) {
-  const { ProductName, Options, request } = req.body;
-
+  const { ProductName, Options, request,price } = req.body;
+  let Price=0;
   try {
     const itemCheck = await productModel.findOne({
       name: { $regex: new RegExp(`^${ProductName}$`, "i") }
@@ -203,7 +203,10 @@ async function handlePriorities(req, res) {
         msg: "Item does not exist. Cannot perform request."
       });
     }
-    
+    if(Options==="PriceChange")
+    {
+      Price=price;
+    }
     const latest = await priorityRequestModel.findOne().sort({ priorityRequestId: -1 });
 
     let Id = 1;
@@ -214,7 +217,8 @@ async function handlePriorities(req, res) {
       priorityRequestId:Id,
       productName: ProductName,
       options: Options,
-      request
+      request,
+      Price
     });
 
     console.log("📝 Saving new priority request:", newPriorityRequest);
@@ -227,7 +231,7 @@ async function handlePriorities(req, res) {
     });
 
   } catch (error) {
-    console.error("🔥 Internal Server Error:", error);
+    console.error("Internal Server Error:", error);
     return res.status(500).json({
       success: false,
       msg: "Internal server error"
