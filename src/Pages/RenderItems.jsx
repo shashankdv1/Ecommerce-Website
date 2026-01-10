@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
+import { useUser } from "../userContext"
 import axios from "axios";
 
 const RenderItems = () => {
+    const {user} = useUser();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
-  const[productName,setName]=useState("");
+ 
   useEffect(() => {
     axios
       .get("http://localhost:8000/Items/RenderItems")
@@ -28,9 +30,26 @@ const RenderItems = () => {
       });
   }, []);
   
-    async function handleAddtoCart()
+    async function handleAddtoCart(product)
     {
-        const response= await axios.post("",{productName},{withCredentials:true});
+   const Name = user?.name;
+   console.log(Name)
+      if(Name!==undefined && product!==undefined){
+        console.log(Name);
+        const response= await axios.post("http://localhost:8000/Items/addToCart",{Name,product},{withCredentials:true});
+        const data=response.data;
+        if(data.success)
+        {
+
+        }
+        else{
+          console.log("Item was not added to cart");
+        }
+
+      }
+      else{
+        console.log("error");
+      }
         
     }
 
@@ -52,8 +71,8 @@ const RenderItems = () => {
       </li>
       <li>Product Price: {product.price}</li>
             <form action="post">
-        <input type="hidden" onChange={()=>{setName(product.name)}}></input>
-    <button onClick={handleAddtoCart}>Add To Cart</button>
+       
+    <button onClick={()=>handleAddtoCart(product.name)}>Add To Cart</button>
     </form>
       <div className="flex">
         <form>

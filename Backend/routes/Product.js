@@ -8,11 +8,12 @@ const {renderItems}=require("../controllers/Products");
 const{getImage}=require("../controllers/Products");
 const{deleteItems}=require("../controllers/Products");
 const{handleTrendingProducts}=require("../controllers/Products");
+const{handleCart}=require("../controllers/Cart");
 productRouter.post("/AddItems",upload.single("image"),handleInsertion);
 productRouter.get("/RenderItems",renderItems);
 productRouter.post("/DeleteItems",deleteItems)
 productRouter.get("/getImage/:Id",getImage);
 productRouter.get("/trending",handleTrendingProducts);
 productRouter.post("/searchItem", searching);
-
+productRouter.post("/addToCart",handleCart);
 module.exports=productRouter;
