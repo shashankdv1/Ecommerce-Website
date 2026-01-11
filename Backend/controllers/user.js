@@ -42,6 +42,9 @@ async function handleRegistration(req,res)
   if (typeof user?.userId !== "undefined") {
     userId = user.userId + 1;
   }
+  else{
+    userId=1;
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new userModel({

@@ -29,18 +29,16 @@ const RenderItems = () => {
         setLoading(false);
       });
   }, []);
-  
-    async function handleAddtoCart(product)
+     const handleAddtoCart=async(product)=>
     {
    const Name = user?.name;
-   console.log(Name)
       if(Name!==undefined && product!==undefined){
-        console.log(Name);
+        console.log(Name+" "+product);
         const response= await axios.post("http://localhost:8000/Items/addToCart",{Name,product},{withCredentials:true});
         const data=response.data;
         if(data.success)
         {
-
+          console.log("Item was successfully added to cart");
         }
         else{
           console.log("Item was not added to cart");
@@ -70,9 +68,9 @@ const RenderItems = () => {
         />
       </li>
       <li>Product Price: {product.price}</li>
-            <form action="post">
+            <form>
        
-    <button onClick={()=>handleAddtoCart(product.name)}>Add To Cart</button>
+    <button onClick={(ev)=>{ev.preventDefault();handleAddtoCart(product.name)}}>Add To Cart</button>
     </form>
       <div className="flex">
         <form>
