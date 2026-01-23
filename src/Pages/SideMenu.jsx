@@ -18,7 +18,7 @@ return(
    <ul>
     <li class="bg-red-100">{user?.name}</li>
    <li><button><a href="http://localhost:3000/Orders">Your Orders</a></button></li> 
-   <li><button>Your Cart</button></li> 
+   <button><a href="http://localhost:3000/DisplayCart">Your Cart</a></button>
    <button><a href="http://localhost:3000/Help">Help and Support</a></button>
    <Logout/>
    </ul>

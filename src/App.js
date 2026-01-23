@@ -30,6 +30,7 @@ import PriorityRequests from './Pages/PriorityRequests';
 import Displayrequests from "./Pages/Displayrequests";
 import DeliveryPartnerRegister from "./Pages/DeliveryPartnerRegister";
 import DeliveryLogin from "./Pages/DeliveryLogin";
+import DisplayCart from "./Pages/DisplayCart";
 function App() {
   return (
     <div>
@@ -38,6 +39,7 @@ function App() {
            <VendorProvider>
     <BrowserRouter>
           <Routes>
+        <Route path="/DisplayCart" element={<DisplayCart/>}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Register" element={<Registrations/>}></Route>
         <Route index element={<Home />} />

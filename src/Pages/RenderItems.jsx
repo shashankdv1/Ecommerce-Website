@@ -33,20 +33,19 @@ const RenderItems = () => {
     {
    const Name = user?.name;
       if(Name!==undefined && product!==undefined){
-        console.log(Name+" "+product);
         const response= await axios.post("http://localhost:8000/Items/addToCart",{Name,product},{withCredentials:true});
         const data=response.data;
         if(data.success)
         {
-          console.log("Item was successfully added to cart");
+          alert("Item was successfully added to cart");
         }
         else{
-          console.log("Item was not added to cart");
+        alert("Item was not added to cart");
         }
 
       }
       else{
-        console.log("error");
+        alert("Something wemt wrong");
       }
         
     }
