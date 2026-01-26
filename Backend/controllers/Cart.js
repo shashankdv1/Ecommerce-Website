@@ -1,5 +1,6 @@
 const CartModel=require("../models/Cart.js");
 const userModel = require("../models/user");
+const productModel=require("../models/Products");
 async function handleCart(req,res)
 {
    
@@ -32,13 +33,16 @@ catch(err)
 async function displayCart(req,res){
    try{
       const{Name}=req.body;
-      console.log(Name);
       const userCheck = await userModel.findOne({username:Name});
       if(userCheck!==null)
       {
          const getCartProducts = await CartModel.find({username:Name});
+         const RendercartItems=[{}];
          if(getCartProducts!==null){
-         return res.status(200).json({success:true,cartProdcuts:getCartProducts});
+            for(let i = 0; i < getCartProducts.length; i++){
+           RendercartItems.push(await  productModel.findOne({name:getCartProducts[i].productName}));
+            }
+         return res.status(200).json({success:true,cartProdcuts:RendercartItems});
          }
       }
       else{

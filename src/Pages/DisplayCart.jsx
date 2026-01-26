@@ -25,8 +25,19 @@ display();
       },[Name])
 return(
     <>
-   {items.map((item, index) => (
-  <p key={index}>{item.productName}</p>
+  {items.map((product, index) => (
+  product && product.name && (
+    <ul key={product.Id || index}>
+      <li>
+        <img class="w-32 h-32"
+          src={`http://localhost:8000/Items/getImage/${product.Id}`}
+          alt={product.name}
+        />
+      </li>
+        <li>Product Name: {product.name}</li>
+      <li>Product Price: {product.price}</li>
+    </ul>
+  )
 ))}
     </>
 )
