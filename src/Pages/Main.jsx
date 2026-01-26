@@ -32,10 +32,8 @@ function Main()
         <>
 <div class="relative">
 <div class="flex justify-normal">
-    <a href="http://localhost:3000/"><p>Store App</p></a>
-
-
-
+    <a href="http://localhost:3000/Main"><p>Store App</p></a>
+  <ItemSearch/>
     <button onClick={profileView} class="absolute right-0" >Your profile</button>
 </div>
 <div class="flex">
@@ -46,9 +44,9 @@ function Main()
     <a href=" http://localhost:3000/Mobile"><button class="ml-2">Mobiles</button></a>
     <a href="http://localhost:3000/Electronics"><button class="ml-2">Electronics</button></a>
     <a href="http://localhost:3000/HomeAppliances"><button class="ml-2">Home and Kitchen</button></a>
-    <a href="http://localhost:3000/HomeAppliances"><button class="ml-2">Groceries</button></a>
+    <a href="http://localhost:3000/Groceries"><button class="ml-2">Groceries</button></a>
     <a href="http://localhost:3000/Books"><button class="ml-2">Books</button></a>
-    <a href="http://localhost:3000/Groceries"><button class="ml-2">Automobile</button></a>
+    <a href="http://localhost:3000/AutoMobile"><button class="ml-2">Automobile</button></a>
 </div>
 </div>
      <div class="flex">

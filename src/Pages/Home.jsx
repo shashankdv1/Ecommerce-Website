@@ -41,9 +41,9 @@ function Home()
     <a href=" http://localhost:3000/Mobile"><button class="ml-2">Mobiles</button></a>
     <a href="http://localhost:3000/Electronics"><button class="ml-2">Electronics</button></a>
     <a href="http://localhost:3000/HomeAppliances"><button class="ml-2">Home and Kitchen</button></a>
-    <a href="http://localhost:3000/HomeAppliances"><button class="ml-2">Groceries</button></a>
+    <a href="http://localhost:3000/Groceries"><button class="ml-2">Groceries</button></a>
     <a href="http://localhost:3000/Books"><button class="ml-2">Books</button></a>
-    <a href="http://localhost:3000/Groceries"><button class="ml-2">Automobile</button></a>
+    <a href="http://localhost:3000/Automobile"><button class="ml-2">Automobile</button></a>
 </div>
 </div>
 <div>
