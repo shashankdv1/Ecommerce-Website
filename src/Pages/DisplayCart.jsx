@@ -26,6 +26,7 @@ display();
 return(
     <>
   {items.map((product, index) => (
+
   product && product.name && (
     <ul key={product.Id || index}>
       <li>

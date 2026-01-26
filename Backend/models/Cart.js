@@ -7,8 +7,7 @@ username:{
 },
 productName:{
     type:String,
-    required:true,
-    unique:true
+    required:true
 }
 });
 
