@@ -30,8 +30,17 @@ function Books()
 
   return (
     <ul>
-      {bookItems.map((bookItem) => (
-        <li key={bookItem.Id}>{bookItems.Name}</li>
+      {bookItems.map((bookItem,index) => (
+         <ul key={bookItem.Id || index}>
+      <li>
+        <img class="w-32 h-32"
+          src={`http://localhost:8000/Items/getImage/${bookItem.Id}`}
+          alt={bookItem.name}
+        />
+      </li>
+        <li>bookItem Name: {bookItem.name}</li>
+      <li>bookItem Price: {bookItem.price}</li>
+    </ul>
       ))}
     </ul>
   );

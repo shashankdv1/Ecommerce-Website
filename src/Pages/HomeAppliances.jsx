@@ -29,8 +29,17 @@ function HomeAppliances() {
 
   return (
     <ul>
-      {HomeItems.map((HomeItem) => (
-        <li key={HomeItem.Id}>{HomeItem.Name}</li>
+      {HomeItems.map((HomeItem,index) => (
+         <ul key={HomeItem.Id || index}>
+      <li>
+        <img class="w-32 h-32"
+          src={`http://localhost:8000/Items/getImage/${HomeItem.Id}`}
+          alt={HomeItem.name}
+        />
+      </li>
+        <li>HomeItem Name: {HomeItem.name}</li>
+      <li>HomeItem Price: {HomeItem.price}</li>
+    </ul>
       ))}
     </ul>
   );

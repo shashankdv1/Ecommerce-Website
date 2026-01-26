@@ -30,8 +30,17 @@ function Groceries()
 
   return (
     <ul>
-      {groceryItems.map((groceryItem) => (
-        <li key={groceryItem.Id}>{groceryItem.Name}</li>
+      {groceryItems.map((groceryItem,index) => (
+         <ul key={groceryItem.Id || index}>
+      <li>
+        <img class="w-32 h-32"
+          src={`http://localhost:8000/Items/getImage/${groceryItem.Id}`}
+          alt={groceryItem.name}
+        />
+      </li>
+        <li>groceryItem Name: {groceryItem.name}</li>
+      <li>groceryItem Price: {groceryItem.price}</li>
+    </ul>
       ))}
     </ul>
   );

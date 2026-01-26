@@ -1,7 +1,6 @@
 const userModel = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const cron = require("node-cron");
 const userstatusModel=require("../models/userStatus");
 let timeoutId=0;
 async function handleLogin(req,res){

@@ -29,8 +29,17 @@ function Electronics() {
 
   return (
     <ul>
-      {eItems.map((eItem) => (
-        <li key={eItem.Id}>{eItem.Name}</li>
+      {eItems.map((eItem,index) => (
+        <ul key={eItem.Id || index}>
+      <li>
+        <img class="w-32 h-32"
+          src={`http://localhost:8000/Items/getImage/${eItem.Id}`}
+          alt={eItem.name}
+        />
+      </li>
+        <li>eItem Name: {eItem.name}</li>
+      <li>eItem Price: {eItem.price}</li>
+    </ul>
       ))}
     </ul>
   );

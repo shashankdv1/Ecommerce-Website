@@ -30,11 +30,17 @@ function Mobile() {
   return (
     <>
     <ul>
-  {Mobiles.map((mobile) => (
-    <>
-      <li key={`name-${mobile.Id}`}>{mobile.name}</li>
-      <li key={`desc-${mobile.Id}`}>{mobile.description}</li>
-    </>
+  {Mobiles.map((mobile,index) => (
+     <ul key={mobile.Id || index}>
+      <li>
+        <img class="w-32 h-32"
+          src={`http://localhost:8000/Items/getImage/${mobile.Id}`}
+          alt={mobile.name}
+        />
+      </li>
+        <li>mobile Name: {mobile.name}</li>
+      <li>mobile Price: {mobile.price}</li>
+    </ul>
   ))}
 </ul>
     </>
