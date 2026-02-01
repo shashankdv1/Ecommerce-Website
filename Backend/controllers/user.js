@@ -31,7 +31,8 @@ async function handleRegistration(req,res)
     if (!Email || !username || !number || !password) {
         return res.status(400).json({ msg: "All fields are required" });
     }
-    const existinguserModel = await userModel.findOne({Email });
+    const email=Email;
+    const existinguserModel = await userModel.findOne({Email:email });
     if (existinguserModel) 
         {return res.status(400).json({ msg: "userModel already exists" });
 }
