@@ -16,7 +16,6 @@ import Books from "./Pages/Books";
 import AutoMobile from "./Pages/AutoMobile";
 import Groceries from "./Pages/Groceries";
 import RemoveItems from "./Pages/RemoveItems";
-import Orders from "./Pages/Orders";
 import Products from "./Pages/Products";
 import Help from "./Pages/Help";
 import Forget from "./Pages/Forget";
@@ -31,6 +30,7 @@ import Displayrequests from "./Pages/Displayrequests";
 import DeliveryPartnerRegister from "./Pages/DeliveryPartnerRegister";
 import DeliveryLogin from "./Pages/DeliveryLogin";
 import DisplayCart from "./Pages/DisplayCart";
+import DisplayOrders from "./Pages/DisplayOrders";
 function App() {
   return (
     <div>
@@ -56,7 +56,6 @@ function App() {
          <Route path="/Groceries" element={<Groceries/>}></Route>
          <Route path="/AdminDashboard" element={<AdminDashboard/>}></Route>
          <Route path="/RemoveItems" element={<RemoveItems/>}></Route>
-         <Route path="/Orders" element={<Orders/>}></Route>
          <Route path="/Products" element={<Products/>}></Route>
          <Route path="/Help" element={<Help/>}></Route>
          <Route path="/Forget" element={<Forget/>}></Route>
@@ -70,6 +69,7 @@ function App() {
             <Route path="/DisplayRequests" element={<Displayrequests/>}></Route>
             <Route path="/DeliveryPartnerRegister" element={<DeliveryPartnerRegister/>}></Route>
             <Route path="/DeliveryLogin" element={<DeliveryLogin/>}></Route>
+            <Route path="/DisplayOrders" element={<DisplayOrders/>}></Route>
       </Routes>
     </BrowserRouter>
     </VendorProvider>

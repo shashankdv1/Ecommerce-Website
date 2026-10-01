@@ -13,7 +13,6 @@ const RenderItems = () => {
       .get("http://localhost:8000/Items/RenderItems")
       .then((response) => {
         const data = response.data;
-
         if (data.success && Array.isArray(data.items)) {
           setItems(data.items);
           setError("");
@@ -116,28 +115,27 @@ const RenderItems = () => {
               <li>
                 <div className="flex">
                   <form
-  onSubmit={(ev) => {
-    ev.preventDefault();
-    // 💡 Accessing the element by name attribute safely
-    const qtyValue = ev.currentTarget.elements.qty.value;
-    handleOrders(product.name, product.price, qtyValue);
-  }}
->
-  <label className="ml-2" htmlFor={`qty-${index}`}>
-    Net Quantity
-  </label>
-  <input
-    id={`qty-${index}`}
-    name="qty" // 💡 Matches elements.qty above
-    className="ml-2 border"
-    type="number"
-    defaultValue="1"
-    min="1"
-  />
-  <button type="submit" className="ml-2">
-    Order
-  </button>
-</form>
+                    onSubmit={(ev) => {
+                      ev.preventDefault();
+                      const qtyValue = ev.currentTarget.elements.qty.value;
+                      handleOrders(product.name, product.price, qtyValue);
+                    }}
+                  >
+                    <label className="ml-2" htmlFor={`qty-${index}`}>
+                      Net Quantity
+                    </label>
+                    <input
+                      id={`qty-${index}`}
+                      name="qty"
+                      className="ml-2 border"
+                      type="number"
+                      defaultValue="1"
+                      min="1"
+                    />
+                    <button type="submit" className="ml-2">
+                      Order
+                    </button>
+                  </form>
                 </div>
               </li>
             </ul>
@@ -149,5 +147,3 @@ const RenderItems = () => {
 };
 
 export default RenderItems;
-
-
