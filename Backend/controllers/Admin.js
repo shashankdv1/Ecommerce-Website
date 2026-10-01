@@ -1,0 +1,56 @@
+const adminModel = require("../models/Admin");
+const userModel=require("../models/user")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+async function handleLogin(req,res){
+    const {username,password } = req.body;
+    const adminDetail = await adminModel.findOne({ username }); 
+    if (!adminDetail) return res.status(400).json({ msg: "user not found" });
+   
+    const isMatch = await bcrypt.compare(password, adminDetail.password);
+    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
+    const token = jwt.sign({ adminModelId: adminModel._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    res.cookie('token', token, {
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        maxAge: 3600 * 1000 
+    });
+    
+    res.json({  success: true, token, msg: "successful",name:adminDetail.username });
+};
+async function handleLogout(req, res) {
+    res.cookie("token", "", { httpOnly: true, expires: new Date(0) });
+    res.json({ success: true, msg: "Logged out successfully" });
+}
+
+function verifyToken(req, res, next) {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ msg: "Unauthorized" });
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (err) {
+        return res.status(401).json({ msg: "Invalid token" });
+    }
+}
+async function getCustomercount(req,res)
+{
+    try{
+const userDetail=await userModel.countDocuments({});
+if(!userDetail) return res.status(400).json({msg:" Users Count Not found"});
+res.json({success:true,count:userDetail});
+    }
+    catch(error)
+    {
+        res.status(500).json({success:false,msg:"Internal Server Error"});
+    }
+}
+module.exports = {
+    handleLogin,
+    handleLogout,
+    verifyToken,
+    getCustomercount
+}
+

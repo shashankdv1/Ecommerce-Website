@@ -1,0 +1,93 @@
+import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAdmin } from "../userContext";
+import { useVendor } from "../userContext";
+function AddItems()
+{
+        const {admin}=useAdmin();
+        const {vendor}=useVendor();
+        const navigate=useNavigate();
+        const[Itemname,setItemname]=useState("");
+        const[price,setPrice]=useState("");
+        const[image,setImage]=useState("");
+        const[category,setCategory]=useState("");
+        const[description,setDescription]=useState("");
+        const[code,setCode]=useState("");
+        const ItemsInsertion=async(e)=>{
+             e.preventDefault();
+           const formData = new FormData();
+            formData.append("name", Itemname);
+            formData.append("price", price);
+            formData.append("category", category);
+            formData.append("description", description);
+            formData.append("image", image);
+            formData.append("code",code);
+            try{
+                    const res = await axios.post(
+                       "http://localhost:8000/Items/AddItems",formData,
+                    {
+                 headers: {
+                    "Content-Type": "multipart/form-data",
+                         },
+            });
+                    if (res.data.success) {
+                        alert("Item added successfully");
+                        navigate("/");
+                    }
+                      else{
+                        alert(res.data.msg);
+                      }
+                }
+                catch(error)
+                {
+                    console.log(error);
+                   alert(error.response?.data?.msg || "Item not Added Succesfully");
+                }
+            }     
+            
+        if(admin===null && vendor===null)
+            {
+               
+                return <p>You do not have priviliges to access this page</p>
+            }        
+    return(
+    <div className="flex justify-center items-center">
+        <form onSubmit={ItemsInsertion} className="flex flex-col">
+        <div className="flex items-center gap-4">
+            <label for="name">Name: </label>
+            <input onChange={(e)=>{setItemname(e.target.value)}} className="flex-1 border-b-2"type="text" name="username" placeholder="Enter your Product name"></input>
+            </div>
+            <div className="flex items-center gap-4">
+            <label for="price">Price: </label>
+            <input onChange={(e)=>{setPrice(e.target.value)}} type="number" className="p-2" name="price" placeholder="Enter your Product price"></input>
+            </div>
+            <div className="flex items-center gap-4">
+            <label for="category">Category: </label>
+           <select id="category" onChange={(e) => setCategory(e.target.value)} required>
+  <option value="">-- Select Category --</option>
+  <option value="Mobile">Mobile</option>
+  <option value="Electronics">Electronics</option>
+  <option value="Groceries">Groceries</option>
+  <option value="Appliances">Appliances</option>
+  <option value="Books">Books</option>
+  <option value="AutoMobile">AutoMobile</option>
+</select>
+
+            </div>
+            <div className="flex items-center gap-4">
+            <label for="description">Description</label>
+            <input type="text" onChange={(e)=>{setDescription(e.target.value)}} name="description" placeholder="Enter your product description"></input>
+            </div>
+            <div className="App">
+            <h2>Add Image:</h2>
+            <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+        </div>
+           <label for="code">Warehouse Code:</label> <input onChange={(e)=>{setCode(e.target.value)}} className="flex-1 border-b-2"type="text" name="code" placeholder="Enter your Warehouse Code" required></input>
+            <button type="submit">Submit</button>
+        </form>
+        </div>
+    );
+}
+
+export default AddItems;
