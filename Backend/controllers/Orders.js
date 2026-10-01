@@ -52,7 +52,6 @@ async function handleOrderInsertion(req, res) {
     await newCartProduct.save();
     return res.status(200).json({ success: true, msg: "Order placed successfully" });
   } catch (err) {
-    console.error("Database Order Error Details: ", err.message);
     return res.status(500).json({ success: false, msg: "Internal Server Error occurred" });
   }
 }
@@ -63,35 +62,20 @@ async function handleOrderInsertion(req, res) {
 async function handledisplayOrders(req, res) {
   try {
     const { Name } = req.body;
-    console.log("-----------------------------------------");
-    console.log("🔍 Incoming Request username:", Name);
-    
-    // 1. Fetch user profile
     const userCheck = await userModel.findOne({ username: Name });
     
     if (!userCheck) {
-      console.log(`❌ User "${Name}" not found in userModel collection.`);
       return res.status(404).json({ success: false, msg: "User does not exist" });
     }
 
-    // 📢 DEBUG LOG: Let's see exactly what fields exist inside your user document
-    console.log("🟢 Full Raw User Document from DB:", JSON.stringify(userCheck));
-    console.log("🧩 userCheck.Id:", userCheck.Id);
-    console.log("🧩 userCheck.userId:", userCheck.userId);
-    console.log("🧩 userCheck._id:", userCheck._id);
 
     // Extracting fields using your variations fallback
     const rawUserId = userCheck.Id || userCheck.userId || userCheck._id;
     const numericUserId = Number(rawUserId);
-    console.log(`🎯 Calculated numericUserId for search query: ${numericUserId} (Type: ${typeof numericUserId})`);
 
     // 2. Query orders from the collection
     const getOrderedProducts = await orderModel.find({ UserId: numericUserId }).lean();
-    console.log(`📦 Orders found in database for UserId [${numericUserId}]: ${getOrderedProducts.length}`);
     
-    // Test fetch: print out a single random entry from the orders table to manually check what keys actually look like
-    const randomOrderTest = await orderModel.findOne({});
-    console.log("🕵️ Random sample order document found in DB table:", JSON.stringify(randomOrderTest));
 
     const RendercartItems = [];
 

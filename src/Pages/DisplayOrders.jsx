@@ -21,7 +21,6 @@ function DisplayOrders() {
           setItems([]);
         }
       } catch (err) {
-        console.error("Error fetching display orders:", err);
         setItems([]);
       } finally {
         setLoading(false);
@@ -42,7 +41,7 @@ function DisplayOrders() {
     <div className="p-6">
       {items.map((product, index) =>
         product && product.name ? (
-          /* FIX: Changed key to product.OrderId to prevent index duplications if multiple identical items exist */
+        
           <ul key={product.OrderId || product.Id || index} className="border-b p-4 mb-4 flex flex-col gap-2">
             <li>
               <img
@@ -53,7 +52,7 @@ function DisplayOrders() {
             </li>
             <li className="font-bold text-lg">Product Name: {product.name}</li>
             
-            {/* FIX: Removed explicit backslashes from currency outputs */}
+           
             <li className="text-gray-700">Base Unit Price: {product.price}</li>
             
             {product.NetQuantity && <li className="text-sm">Quantity Ordered: {product.NetQuantity} units</li>}
