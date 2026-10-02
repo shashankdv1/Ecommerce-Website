@@ -6,6 +6,17 @@ async function handleCart(req,res)
    
     const{Name,product}=req.body;
   try{
+     const user = await userModel.findOne({
+      username: Name
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        msg: "User not found"
+      });
+    }
+    else{
      const productCheck=await CartModel.findOne({username:Name,productName:product});
      if(productCheck===null)
      {
@@ -18,8 +29,10 @@ async function handleCart(req,res)
      }
      else{
             return res.status(409).json({success:false,msg:"Item already present in  cart"});
-     }   
+     }  
+      
   }  
+}
 catch(err)
 {
      if (err.response?.status === 409) {
