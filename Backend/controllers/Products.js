@@ -4,6 +4,7 @@ const warehouseModel = require("../models/Warehouse");
 
 const handleInsertion = async (req, res) => {
   try {
+    let approvedByAdmin=false;
     const adminCode = process.env.ADMIN_CODE;
     const { name, price, category, description, code } = req.body;
 
@@ -19,7 +20,7 @@ const handleInsertion = async (req, res) => {
         return res.status(401).json({ success: false, msg: "The provided organization code is false" });
       }
       addedBy = "vendor";
-      approvedByAdmin=false;
+      approvedByAdmin=true;
     }
     if(adminCode===code)
     {
