@@ -29,9 +29,9 @@ function Trending()
 
   return (
     <ul>
-      {trendingItems.map((trendingItem) => (
-        <li key={trendingItem.Id}>{trendingItem.Name} {trendingItem.addedOn}</li>
-      ))}
+      {/* {trendingItems.map((trendingItem) => (
+        <li key={trendingItem.Id}>{trendingItem.Name} {trendingItem.addedOn}</li> 
+      ))} */}
     </ul>
   );
 }

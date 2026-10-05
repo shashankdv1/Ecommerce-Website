@@ -94,7 +94,7 @@ const getImage = async (req, res) => {
 const deleteItems=async(req,res)=>{
 try{
 const { Id, name } = req.body;
-const getProduct = await productModel.findOne({ Id, Name });
+const getProduct = await productModel.findOne({ name });
 const productName=getProduct.name;
 if(!getProduct) 
   {

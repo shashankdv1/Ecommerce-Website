@@ -2,12 +2,12 @@ import { useState} from 'react';
 import axios from 'axios';
 const RemoveItems=()=>{
     const[Id,setId]=useState("");
-    const[Name,setName]=useState("");
+    const[name,setName]=useState("");
     const handleDeletion=async(e)=>{
          e.preventDefault();
         try{
-            console.log(Id+" "+Name);
-        const res = await axios.post("http://localhost:8000/Items/DeleteItems",{Id,Name},{withCredentials:true});
+            
+        const res = await axios.post("http://localhost:8000/Items/DeleteItems",{name,Id},{withCredentials:true});
        
         if(res.data.success)
         {

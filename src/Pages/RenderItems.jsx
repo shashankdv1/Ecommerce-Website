@@ -93,7 +93,7 @@ const RenderItems = () => {
         const productId = product.Id || product._id;
 
         return (
-          product &&
+
           product.name && (
             <ul key={productId || index} className="border-b p-4 mb-4">
               <li>Product Name: {product.name}</li>
